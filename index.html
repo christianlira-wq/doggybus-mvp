@@ -2632,7 +2632,13 @@
             };
             clearBookingData();
             document.querySelectorAll('.service-selector').forEach(c => c.classList.remove('selected'));
-            document.getElementById('client-form').reset();
+
+            // Reset all forms (pet-form and address-form)
+            const petForm = document.getElementById('pet-form');
+            const addressForm = document.getElementById('address-form');
+            if (petForm) petForm.reset();
+            if (addressForm) addressForm.reset();
+
             appointmentDate.value = '';
             appointmentTime.innerHTML = '<option value="">Seleccionar</option>';
             voucherUpload.value = '';
