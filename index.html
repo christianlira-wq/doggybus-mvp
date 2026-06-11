@@ -1,0 +1,3412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DoggyBus Mobile Pet Spa - Estética y spa canino móvil premium a domicilio en Chihuahua">
+    <title>DoggyBus Mobile Pet Spa | Estética Canina Móvil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* DoggyBus Pet Premium Fresh Palette */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #EFF6FF;
+            --bg-tertiary: #F0F9FF;
+
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --blue-vibrant: #2563EB;
+            --blue-light: #DBEAFE;
+
+            --accent-primary: #2563EB;
+            --accent-dark: #1D4ED8;
+            --accent-light: #93C5FD;
+
+            --success: #16A34A;
+            --success-light: #DCFCE7;
+            --warning: #F59E0B;
+            --warning-light: #FEF3C7;
+            --error: #DC2626;
+            --error-light: #FEE2E2;
+
+            --shadow-card: rgba(37, 99, 235, 0.08);
+            --shadow-modal: rgba(37, 99, 235, 0.16);
+
+            /* Legacy compatibility */
+            --color-primary: #2563EB;
+            --color-secondary: #EFF6FF;
+            --color-accent: #1D4ED8;
+            --color-text: #1E293B;
+            --color-text-light: #64748B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFFFFF;
+            color: var(--color-text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-fade-in { animation: fadeInUp 0.8s ease forwards; }
+        .animate-scale-in { animation: scaleIn 0.6s ease forwards; }
+        .animate-slide-in { animation: slideIn 0.7s ease forwards; }
+
+        /* HERO */
+        .hero-minimal {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.95) 100%),
+                url('hero-experience.png') center/cover no-repeat;
+            position: relative;
+        }
+
+        .hero-minimal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+        }
+
+        /* BUTTONS */
+        .btn-minimal {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 18px 48px;
+            border: 1.5px solid var(--color-primary);
+            background: transparent;
+            color: var(--color-primary);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-minimal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-primary);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-minimal:hover::before { left: 0; }
+        .btn-minimal:hover { color: #FFFFFF; }
+        .btn-minimal:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border-color: var(--color-primary);
+        }
+
+        .btn-primary::before { background: var(--color-accent); }
+
+        /* CARDS */
+        .card-minimal {
+            background: #FFFFFF;
+            border: 1px solid #EEEEEE;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .card-minimal:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        }
+
+        /* SERVICE CARDS */
+        .service-minimal {
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-minimal::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.4s ease;
+        }
+
+        .service-minimal:hover::after { width: 80%; }
+
+        /* Interactive "Tap para agendar" overlay for gallery cards */
+        .service-minimal::before {
+            content: 'Tap para agendar →';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(212, 165, 116, 0.95), transparent);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .service-minimal:hover::before {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-minimal.selected {
+            background: #FAFAFA;
+            border-color: var(--color-primary);
+        }
+
+        /* STEP INDICATORS */
+        .step-minimal {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #E5E5E5;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step-minimal::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .step-minimal.active {
+            background: var(--color-primary);
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        .step-minimal.active::after {
+            background: #FFFFFF;
+        }
+
+        .step-minimal.completed {
+            background: var(--color-accent);
+        }
+
+        /* INPUTS */
+        input, select, textarea {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            padding: 18px 24px;
+            border: 1px solid #E5E5E5;
+            background: #FAFAFA;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--color-primary);
+            background: #FFFFFF;
+        }
+
+        /* TIMELINE */
+        .timeline-minimal {
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .timeline-minimal::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: 0;
+            width: 1px;
+            background: #E5E5E5;
+        }
+
+        .timeline-minimal:last-child::before { display: none; }
+
+        .timeline-dot-minimal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #FAFAFA;
+            border: 1px solid #E5E5E5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-dot-minimal.active {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 24px rgba(26,26,26,0.2);
+        }
+
+        .timeline-dot-minimal.completed {
+            background: var(--color-accent);
+            color: #FFFFFF;
+            border-color: var(--color-accent);
+        }
+
+        /* BADGES */
+        .badge-minimal {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: 3px;
+        }
+
+        .badge-pending { background: #FFF4E6; color: #B45309; }
+        .badge-apartada { background: #EFF6FF; color: #1E40AF; }
+        .badge-route { background: #ECFDF5; color: #065F46; }
+        .badge-completed { background: #F5F5F5; color: #737373; }
+        .badge-vip { background: #1A1A1A; color: #FFFFFF; }
+        .badge-reward { background: #FEF3C7; color: #92400E; }
+
+        /* STAMPS */
+        .stamp-minimal {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 2px solid #E5E5E5;
+            background: #FAFAFA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: #CCCCCC;
+            transition: all 0.3s ease;
+        }
+
+        .stamp-minimal.filled {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #FFFFFF;
+        }
+
+        /* MODALS */
+        .modal-minimal {
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+        }
+
+        /* TABS */
+        .tab-minimal {
+            padding: 16px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-light);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-minimal:hover { color: var(--color-primary); }
+        .tab-minimal.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        /* UPLOAD AREA */
+        .upload-minimal {
+            border: 2px dashed #E5E5E5;
+            background: #FAFAFA;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-minimal:hover {
+            border-color: var(--color-primary);
+            background: #FFFFFF;
+        }
+
+        .upload-minimal.has-file {
+            border-style: solid;
+            border-color: var(--color-accent);
+        }
+
+        /* REWARD OPTIONS */
+        .reward-minimal {
+            border: 1px solid #E5E5E5;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reward-minimal:hover {
+            border-color: var(--color-primary);
+            background: #FAFAFA;
+        }
+
+        .reward-minimal.selected {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border-color: var(--color-primary);
+        }
+
+        /* DIVIDER */
+        .divider-minimal {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #E5E5E5, transparent);
+        }
+
+        /* VIEW SYSTEM */
+        .view-container { display: none; }
+        .view-container.active { display: block; }
+
+        /* LOADER */
+        .loader {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #FFFFFF;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ==========================================
+           DOGGYBUS - MODERN PET SPA COMPONENTS
+           ========================================== */
+
+        /* Direction 1: Visual Gallery Service Cards */
+        /* Service Selector Grid - Explicit fallback */
+        #service-selector-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        @media (min-width: 768px) {
+            #service-selector-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .service-card-luxury {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            overflow: hidden;
+            box-shadow: 0 2px 12px var(--shadow-card);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card-luxury:hover,
+        .service-card-luxury:focus {
+            border-color: var(--rose-gold);
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(44, 44, 44, 0.12);
+        }
+
+        .service-card-luxury.selected {
+            border-color: var(--rose-gold-dark);
+            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .service-card-luxury .service-image {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .service-card-luxury .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .service-card-luxury .service-image {
+                height: 280px;
+            }
+        }
+
+        .service-card-luxury .service-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .service-card-luxury .service-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .service-card-luxury .service-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--rose-gold-dark);
+        }
+
+        .service-card-luxury .service-price .currency {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .service-card-luxury .checkmark {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            background: var(--rose-gold-dark);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.3s ease;
+        }
+
+        .service-card-luxury.selected .checkmark {
+            display: flex;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Enhanced selected state with overlay */
+        .service-card-luxury.selected::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid var(--rose-gold-dark);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Instagram Stories Progress Dots */
+        .progress-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+            padding: 16px 0;
+        }
+
+        .progress-dots .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #D1D5DB;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-dots .dot.active {
+            background: var(--color-primary);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .progress-dots .dot.completed {
+            background: var(--accent-light);
+        }
+
+        /* Premium Button Styles */
+        .btn-luxury-primary {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-luxury-primary:hover:not(:disabled) {
+            background: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-luxury-primary:disabled {
+            background: #D1D5DB;
+            color: #9CA3AF;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-luxury-primary.loading {
+            pointer-events: none;
+        }
+
+        .btn-luxury-primary .loader {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        /* Payment Method Selector Cards */
+        .payment-method-card {
+            background: white;
+            border: 3px solid var(--taupe-light);
+            border-radius: 12px;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .payment-method-card:hover {
+            border-color: var(--rose-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.2);
+        }
+
+        .payment-method-card.selected {
+            border-color: var(--rose-gold-dark);
+            background: var(--rose-gold-light);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+        }
+
+        .payment-method-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: var(--rose-gold-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Copy CLABE Button with Animation */
+        .btn-copy-clabe {
+            background: var(--bg-secondary);
+            border: 2px solid var(--taupe);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-copy-clabe:hover {
+            background: var(--rose-gold-light);
+            border-color: var(--rose-gold);
+        }
+
+        .btn-copy-clabe.copied {
+            background: var(--success-light);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .btn-copy-clabe .icon {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-copy-clabe.copied .icon {
+            transform: scale(1.2);
+        }
+
+        /* Luxury Form Inputs */
+        .input-luxury {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            padding: 16px 20px;
+            border: 2px solid var(--taupe-light);
+            border-radius: 8px;
+            background: white;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            outline: none;
+            width: 100%;
+        }
+
+        .input-luxury:focus {
+            border-color: var(--rose-gold);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        .input-luxury.error {
+            border-color: var(--error);
+        }
+
+        .input-luxury.success {
+            border-color: var(--success);
+        }
+
+        .input-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-error-message {
+            font-size: 12px;
+            color: var(--error);
+            margin-top: 4px;
+            display: none;
+        }
+
+        .input-luxury.error + .input-error-message {
+            display: block;
+        }
+
+        /* File Upload Area */
+        .file-upload-luxury {
+            border: 2px dashed var(--taupe);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-luxury:hover {
+            border-color: var(--rose-gold);
+            background: var(--rose-gold-light);
+        }
+
+        .file-upload-luxury.has-file {
+            border-style: solid;
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .file-upload-luxury .upload-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .file-upload-luxury .upload-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Booking Wizard Container */
+        .booking-wizard {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--bg-primary);
+            min-height: 100vh;
+        }
+
+        .booking-step {
+            display: none;
+        }
+
+        .booking-step.active {
+            display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        /* Utility class for hiding elements */
+        .hidden {
+            display: none !important;
+        }
+
+        .step-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        .booking-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid var(--taupe-light);
+        }
+
+        .booking-summary .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .booking-summary .summary-label {
+            color: var(--text-secondary);
+        }
+
+        .booking-summary .summary-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Success/Confirmation Screen */
+        .confirmation-screen {
+            text-align: center;
+            padding: 48px 20px;
+        }
+
+        .confirmation-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 24px;
+            animation: scaleIn 0.5s ease;
+        }
+
+        .confirmation-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .confirmation-message {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            h1 { font-size: 48px !important; }
+            h2 { font-size: 36px !important; }
+            .service-minimal { padding: 40px 24px; }
+
+            .service-card-luxury .service-image {
+                height: 240px;
+            }
+
+            .booking-wizard {
+                padding: 16px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .service-card-luxury .service-image {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LANDING VIEW -->
+    <div id="view-landing" class="view-container active">
+        <!-- HERO -->
+        <section class="hero-minimal">
+            <div class="max-w-5xl mx-auto px-8 text-center">
+                <div class="animate-fade-in">
+                    <p class="text-xs tracking-[4px] uppercase text-gray-400 mb-8">Chihuahua, México</p>
+
+                    <!-- Emoji grande de perro (mobile-first) -->
+                    <div class="text-8xl md:text-9xl mb-8">🐕</div>
+
+                    <h1 class="text-5xl md:text-7xl lg:text-9xl mb-6 font-bold">DoggyBus</h1>
+
+                    <div class="divider-minimal max-w-xs mx-auto my-8"></div>
+
+                    <h2 class="text-xl md:text-3xl text-blue-600 font-semibold mb-6">
+                        ¡Spa canino en tu puerta!
+                    </h2>
+
+                    <p class="text-base md:text-lg text-gray-600 max-w-xl mx-auto mb-12 leading-relaxed">
+                        Agenda el servicio estético para tu mejor amigo<br/>
+                        sin salir de casa en Chihuahua.
+                    </p>
+
+                    <!-- 3 Bullets específicos -->
+                    <div class="max-w-md mx-auto text-left mb-12 space-y-3">
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <span class="text-2xl">💧</span>
+                            <span class="text-sm md:text-base">Agua tibia y masajes</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <span class="text-2xl">🧴</span>
+                            <span class="text-sm md:text-base">Champú hipoalergénico</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <span class="text-2xl">👨‍⚕️</span>
+                            <span class="text-sm md:text-base">Estilistas certificados</span>
+                        </div>
+                    </div>
+
+                    <a href="#servicios">
+                        <button class="btn-minimal btn-primary text-lg px-12 py-4">Nuestros Servicios →</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section id="servicios" class="py-32 px-8 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-24 animate-fade-in">
+                    <h2 class="text-5xl md:text-6xl mb-6">Nuestros Servicios 🐕</h2>
+                    <p class="text-gray-500 text-lg">Experiencias premium para tu mejor amigo • Click para agendar</p>
+                </div>
+                <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"></div>
+            </div>
+        </section>
+
+        <!-- BOOKING -->
+        <section id="agendar" class="py-32 px-8 bg-gray-50">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white p-12 md:p-20">
+                    <h2 class="text-4xl md:text-5xl text-center mb-4">Agenda Tu Cita</h2>
+                    <div class="divider-minimal max-w-xs mx-auto my-12"></div>
+
+                    <!-- Instagram Stories-Style Progress Indicator -->
+                    <div class="progress-dots">
+                        <div class="dot active" data-step="1"></div>
+                        <div class="dot" data-step="2"></div>
+                        <div class="dot" data-step="3"></div>
+                        <div class="dot" data-step="4"></div>
+                        <div class="dot" data-step="5"></div>
+                    </div>
+
+                    <!-- Auto-save indicator -->
+                    <div id="autosave-indicator" class="text-center text-xs text-success opacity-0 transition-opacity mb-4" style="height: 16px;">
+                        Borrador guardado ✓
+                    </div>
+
+                    <div id="step-1" class="booking-step active">
+                        <h3 class="text-2xl text-center mb-4 text-gray-800">Selecciona tu Servicio</h3>
+                        <p class="text-center text-gray-500 mb-16 text-sm">Paso 1 de 4</p>
+                        <div id="service-selector-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16"></div>
+                        <div class="text-center">
+                            <button id="btn-step-1" class="btn-luxury-primary" disabled>Continuar</button>
+                        </div>
+                    </div>
+
+                    <!-- NUEVO STEP 2: DATOS DEL PERRO -->
+                    <div id="step-2" class="booking-step">
+                        <h3 class="text-2xl text-center mb-4 text-gray-800">Sobre tu Mascota 🐕</h3>
+                        <p class="text-center text-gray-500 mb-16 text-sm">Paso 2 de 5</p>
+                        <form id="pet-form" class="space-y-8 mb-16">
+                            <div class="bg-blue-50 p-6 rounded-lg space-y-6">
+                                <p class="text-sm uppercase tracking-wide text-blue-900 font-semibold mb-4">¿Quién es nuestro amigo peludo?</p>
+                                <div>
+                                    <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Nombre del Perro *</label>
+                                    <input type="text" id="pet-name" class="w-full" placeholder="Ej: Max, Luna, Rocky..." required>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Raza *</label>
+                                        <select id="pet-breed" class="w-full" required>
+                                            <option value="">Selecciona...</option>
+                                            <option value="chihuahua">Chihuahua</option>
+                                            <option value="labrador">Labrador</option>
+                                            <option value="golden-retriever">Golden Retriever</option>
+                                            <option value="pastor-aleman">Pastor Alemán</option>
+                                            <option value="bulldog">Bulldog</option>
+                                            <option value="poodle">Poodle</option>
+                                            <option value="schnauzer">Schnauzer</option>
+                                            <option value="yorkshire">Yorkshire Terrier</option>
+                                            <option value="shih-tzu">Shih Tzu</option>
+                                            <option value="husky">Husky Siberiano</option>
+                                            <option value="mestizo">Mestizo / Criollo</option>
+                                            <option value="otra">Otra</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Tamaño *</label>
+                                        <select id="pet-size" class="w-full" required>
+                                            <option value="">Selecciona...</option>
+                                            <option value="pequeno">Pequeño (0-10 kg) - Chihuahua, Poodle Toy</option>
+                                            <option value="mediano">Mediano (11-25 kg) - Schnauzer, Cocker</option>
+                                            <option value="grande">Grande (26-45 kg) - Golden, Pastor Alemán</option>
+                                            <option value="gigante">Gigante (+45 kg) - Gran Danés, San Bernardo</option>
+                                        </select>
+                                        <p class="text-xs text-gray-500 mt-2">Nos ayuda a preparar el agua y calcular el tiempo 🚌</p>
+                                    </div>
+                                </div>
+
+                                <!-- Tabla de Precios por Tamaño -->
+                                <div id="price-table" class="bg-white border border-blue-200 rounded-lg p-4 mt-4" style="display: none;">
+                                    <p class="text-xs uppercase tracking-wide text-blue-900 font-semibold mb-3">💰 Precios por Tamaño</p>
+                                    <div class="space-y-2 text-sm" id="price-table-content">
+                                        <!-- Se llena dinámicamente con JavaScript -->
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Observaciones especiales</label>
+                                    <textarea id="pet-notes" class="w-full" rows="2" placeholder="Ej: Es nervioso, tiene alergias, es agresivo con extraños..."></textarea>
+                                    <p class="text-xs text-gray-500 mt-2">Esto nos ayuda a preparar el equipo y darle el mejor cuidado a tu perro</p>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="flex justify-between gap-4">
+                            <button id="btn-back-to-1" class="btn-minimal flex-1">Regresar</button>
+                            <button id="btn-step-2" class="btn-luxury-primary flex-1" disabled>Continuar</button>
+                        </div>
+                    </div>
+
+                    <!-- NUEVO STEP 3: DIRECCIÓN Y CONTACTO -->
+                    <div id="step-3" class="booking-step">
+                        <h3 class="text-2xl text-center mb-4 text-gray-800">¿Dónde te visitamos? 📍</h3>
+                        <p class="text-center text-gray-500 mb-16 text-sm">Paso 3 de 5</p>
+                        <form id="address-form" class="space-y-8 mb-16">
+                            <!-- Datos del Cliente -->
+                            <div>
+                                <p class="text-sm uppercase tracking-wide text-gray-800 font-semibold mb-6">👤 Tus Datos de Contacto</p>
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Nombre Completo *</label>
+                                        <input type="text" id="client-name" class="w-full" placeholder="Ej: Juan Pérez" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">WhatsApp *</label>
+                                        <input type="tel" id="client-phone" class="w-full" placeholder="6141234567" pattern="[0-9]{10}" maxlength="10" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dirección -->
+                            <div class="pt-6">
+                                <p class="text-sm uppercase tracking-wide text-gray-800 font-semibold mb-6">🏠 Dirección del Servicio</p>
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Calle y Número *</label>
+                                        <input type="text" id="client-street" class="w-full" placeholder="Ej: Av. San Felipe 1420" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Colonia (Chihuahua) *</label>
+                                        <input type="text" id="client-colonia" class="w-full" placeholder="Ej: San Felipe" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Referencias *</label>
+                                        <textarea id="client-references" class="w-full" rows="3" placeholder="Ej: Casa de dos pisos color beige, portón negro" required></textarea>
+                                        <p class="text-xs text-gray-500 mt-2">Ayúdanos a llegar fácilmente a tu domicilio</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="flex justify-between gap-4">
+                            <button id="btn-back-to-2" class="btn-minimal flex-1">Regresar</button>
+                            <button id="btn-step-3" class="btn-luxury-primary flex-1">Continuar</button>
+                        </div>
+                    </div>
+
+                    <!-- NUEVO STEP 4: FECHA Y HORA -->
+                    <div id="step-4" class="booking-step">
+                        <h3 class="text-2xl text-center mb-4 text-gray-800">¿Cuándo te visitamos? 📅</h3>
+                        <p class="text-center text-gray-500 mb-16 text-sm">Paso 4 de 5</p>
+                        <div class="bg-blue-50 p-8 mb-8 text-center text-sm text-gray-700">
+                            <p class="mb-2 font-semibold">⏰ Horarios de Servicio</p>
+                            <p>Lunes a Viernes: 9:00 AM - 7:00 PM</p>
+                            <p>Sábados: 9:00 AM - 2:00 PM</p>
+                            <p class="text-xs mt-3 text-gray-600">El tiempo de servicio varía según el tamaño del perro</p>
+                        </div>
+                        <div class="bg-green-50 border border-green-200 p-6 mb-12 text-sm text-gray-700 rounded-lg">
+                            <p class="font-semibold text-green-800 mb-2">✅ Sistema Inteligente de Horarios</p>
+                            <p class="text-xs text-gray-600">Solo te mostramos horarios disponibles. Ya consideramos:</p>
+                            <ul class="text-xs text-gray-600 mt-2 space-y-1 list-disc list-inside">
+                                <li>⏱️ Duración del servicio (Baño: 60min, Estética: 90min)</li>
+                                <li>🚗 Tiempo de viaje entre citas (15-30min según zona)</li>
+                                <li>📍 Otros servicios ya agendados ese día</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-8 mb-16">
+                            <div>
+                                <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Fecha *</label>
+                                <input type="date" id="appointment-date" class="w-full" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Hora *</label>
+                                <select id="appointment-time" class="w-full" required>
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <button id="btn-back-to-3" class="btn-minimal flex-1">Regresar</button>
+                            <button id="btn-step-4" class="btn-luxury-primary flex-1" disabled>Continuar</button>
+                        </div>
+                    </div>
+
+                    <!-- NUEVO STEP 5: PAGO -->
+                    <div id="step-5" class="booking-step">
+                        <h3 class="text-2xl text-center mb-4 text-gray-800">Apartado 💳</h3>
+                        <p class="text-center text-gray-500 mb-8 text-sm">Paso 5 de 5</p>
+
+                        <!-- Depósito Amount -->
+                        <div class="bg-gray-50 p-8 mb-12 text-center">
+                            <p class="text-sm uppercase tracking-wide text-gray-600 mb-2">Depósito de Apartado</p>
+                            <p class="text-5xl font-light">$100 <span class="text-2xl text-gray-500">MXN</span></p>
+                        </div>
+
+                        <!-- Método de Pago Selector -->
+                        <div class="mb-12">
+                            <p class="text-sm uppercase tracking-wide text-gray-600 mb-6 text-center">Selecciona tu método de pago</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- CoDi Option -->
+                                <div id="payment-option-codi" class="payment-method-card" data-method="codi">
+                                    <div class="text-center">
+                                        <div class="text-5xl mb-4">⚡</div>
+                                        <h4 class="font-semibold text-lg mb-2">Pago Instantáneo</h4>
+                                        <p class="text-sm text-gray-600">CoDi</p>
+                                    </div>
+                                </div>
+
+                                <!-- Depósito Option -->
+                                <div id="payment-option-deposito" class="payment-method-card selected" data-method="deposito">
+                                    <div class="text-center">
+                                        <div class="text-5xl mb-4">📸</div>
+                                        <h4 class="font-semibold text-lg mb-2">Depósito o Transferencia</h4>
+                                        <p class="text-sm text-gray-600">Banco Azteca</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CoDi Container (hidden by default) -->
+                        <div id="codi-container" class="hidden mb-12">
+                            <div class="bg-gray-50 p-12 text-center">
+                                <p class="text-sm uppercase tracking-wide text-gray-600 mb-6">Escanea el código QR</p>
+                                <div class="inline-block p-8 bg-white rounded-lg shadow-lg mb-6">
+                                    <div class="w-48 h-48 bg-gradient-to-br from-rose-gold-light to-taupe-light flex items-center justify-center text-6xl">
+                                        📱
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 mb-6">Código QR de CoDi • Válido por 10 minutos</p>
+                                <button id="btn-open-banking-app" class="btn-luxury-primary max-w-md mx-auto">
+                                    Abrir en mi App Bancaria
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Depósito Container (visible by default) -->
+                        <div id="deposito-container" class="mb-12">
+                            <div class="bg-gray-50 p-8 mb-8 text-center">
+                                <p class="text-sm uppercase tracking-wide text-gray-600 mb-4">Datos Bancarios</p>
+                                <div class="text-left max-w-md mx-auto space-y-2 text-sm text-gray-600">
+                                    <p><span class="font-medium">Banco:</span> <span id="bank-name"></span></p>
+                                    <p><span class="font-medium">Titular:</span> <span id="account-holder"></span></p>
+                                    <p><span class="font-medium">Cuenta:</span> <span id="account-number"></span></p>
+                                </div>
+                                <div class="mt-8 text-center">
+                                    <button id="btn-copy-clabe" class="btn-copy-clabe">
+                                        <span class="icon">📋</span>
+                                        <span class="text">Copiar CLABE</span>
+                                    </button>
+                                    <p id="copy-success-msg" class="text-xs text-success mt-3 opacity-0 transition-opacity">Número copiado al portapapeles</p>
+                                </div>
+                            </div>
+
+                            <div class="mb-8">
+                                <label class="block text-sm uppercase tracking-wide text-gray-600 mb-3">Comprobante de Pago *</label>
+                                <p class="text-xs text-gray-500 mb-6">Solo imágenes JPG o PNG</p>
+                                <div class="upload-minimal" id="upload-area">
+                                    <input type="file" id="voucher-upload" accept="image/jpeg,image/png,image/jpg" class="hidden">
+                                    <div id="upload-placeholder">
+                                        <p class="text-6xl mb-4">📸</p>
+                                        <p class="text-sm text-gray-600">Subir comprobante</p>
+                                    </div>
+                                    <div id="upload-preview" class="hidden">
+                                        <img id="voucher-preview-img" class="max-w-full max-h-64 mx-auto mb-4" alt="Comprobante">
+                                        <button type="button" id="remove-voucher" class="text-sm text-gray-500 hover:text-gray-800">Cambiar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Policy Note -->
+                        <div class="bg-gray-50 p-8 mb-12 text-sm text-gray-600 space-y-4">
+                            <p><strong>Política:</strong> El depósito NO es reembolsable.</p>
+                            <p class="italic">🐾 Sabemos que tu perro es parte de tu familia. Por eso en DoggyBus nos encargamos de consentirlo con el mejor cuidado, mientras tú disfrutas viendo su transformación desde la comodidad de tu hogar.</p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex justify-between gap-4">
+                            <button id="btn-back-to-4" class="btn-minimal flex-1">Regresar</button>
+                            <button id="btn-confirm" class="btn-luxury-primary flex-1" disabled>
+                                <span id="btn-confirm-text">Confirmar Cita</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-16 px-8 bg-white border-t border-gray-100">
+            <div class="max-w-7xl mx-auto text-center">
+                <h3 class="text-2xl mb-2">🐾 DoggyBus</h3>
+                <p class="text-sm text-gray-500">Mobile Pet Spa • Chihuahua, México</p>
+                <div class="divider-minimal max-w-xs mx-auto my-8"></div>
+                <p class="text-xs text-gray-400">&copy; 2026 DoggyBus Mobile Pet Spa</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- TRACKING VIEW -->
+    <div id="view-tracking" class="view-container">
+        <div class="min-h-screen py-16 px-8">
+            <div class="max-w-3xl mx-auto">
+                <button onclick="goToView('landing')" class="text-sm text-gray-500 hover:text-gray-800 mb-12 inline-flex items-center gap-2">
+                    <span>←</span> Volver
+                </button>
+                <div class="bg-white p-12 md:p-16">
+                    <h1 class="text-4xl md:text-5xl text-center mb-4">Tu Cita</h1>
+                    <div class="divider-minimal max-w-xs mx-auto my-12"></div>
+                    <div class="bg-gray-50 p-8 mb-12 text-center">
+                        <p class="text-sm text-gray-500 mb-2">Hola,</p>
+                        <p class="text-2xl mb-6" id="tracking-client-name">María García</p>
+                        <div class="space-y-1 text-sm text-gray-600">
+                            <p><span id="tracking-service"></span></p>
+                            <p><span id="tracking-date"></span> • <span id="tracking-time"></span></p>
+                        </div>
+                    </div>
+                    <div id="reward-badge-tracking" class="hidden bg-yellow-50 border border-yellow-200 p-8 mb-12 text-center">
+                        <p class="text-4xl mb-4">🎁</p>
+                        <p class="text-lg font-medium">Tienes una recompensa</p>
+                        <p class="text-sm text-gray-600 mt-2">Menciona este código al agendar</p>
+                    </div>
+                    <div id="tracking-timeline" class="space-y-12 mb-12"></div>
+                    <div id="loyalty-section-tracking" class="hidden bg-gray-50 p-12">
+                        <p class="text-center text-sm text-gray-600 mb-8">Programa de Recompensas</p>
+                        <p class="text-center mb-8"><span id="loyalty-progress-text" class="text-2xl font-light"></span></p>
+                        <div id="stamps-container-tracking" class="flex justify-center gap-4 flex-wrap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="view-admin" class="view-container">
+        <div class="min-h-screen py-16 px-8 bg-gray-50">
+            <div class="max-w-7xl mx-auto">
+                <button onclick="goToView('landing')" class="text-sm text-gray-500 hover:text-gray-800 mb-12 inline-flex items-center gap-2">
+                    <span>←</span> Volver
+                </button>
+                <div class="flex justify-between items-center mb-16">
+                    <h1 class="text-4xl md:text-5xl">Panel</h1>
+                    <p class="text-sm text-gray-500" id="admin-date"></p>
+                </div>
+                <div class="flex gap-8 mb-12 border-b border-gray-200">
+                    <div class="tab-minimal active" onclick="switchAdminTab('daily')">Citas</div>
+                    <div class="tab-minimal" onclick="switchAdminTab('routes')">🚌 Rutas</div>
+                    <div class="tab-minimal" onclick="switchAdminTab('clients')">Clientes</div>
+                    <div class="tab-minimal" onclick="switchAdminTab('analytics')">Analytics</div>
+                </div>
+
+                <div id="admin-tab-daily" class="admin-tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">Citas Hoy</p><p class="text-4xl font-light" id="metric-today">0</p></div>
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">Ingresos</p><p class="text-4xl font-light" id="metric-revenue">$0</p></div>
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">Pendientes</p><p class="text-4xl font-light" id="metric-pending">0</p></div>
+                    </div>
+                    <div class="bg-white p-8">
+                        <div class="flex justify-between items-center mb-8">
+                            <h2 class="text-2xl">Citas del Día</h2>
+                            <select id="filter-status" class="text-sm border border-gray-300 px-4 py-2">
+                                <option value="all">Todos</option>
+                                <option value="pending-payment">Pago Pendiente</option>
+                                <option value="apartada">Apartada</option>
+                                <option value="en-route">En Camino</option>
+                                <option value="completed">Finalizada</option>
+                            </select>
+                        </div>
+                        <div id="appointments-container" class="space-y-6"></div>
+                    </div>
+                </div>
+
+                <!-- RUTAS TAB -->
+                <div id="admin-tab-routes" class="admin-tab-content hidden">
+                    <!-- Selector de Zona y Métricas -->
+                    <div class="bg-white p-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <label class="block text-sm uppercase tracking-wide text-gray-600 mb-2">Ruta del Día</label>
+                            <select id="route-zone-selector" class="text-lg font-semibold border-2 border-blue-500 px-4 py-2 rounded-lg" onchange="updateRouteView()">
+                                <option value="norte">🧭 ZONA NORTE</option>
+                                <option value="sur">🧭 ZONA SUR</option>
+                                <option value="centro">🧭 ZONA CENTRO</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="text-center">
+                                <p class="text-xs uppercase text-gray-500 mb-1">Servicios Agendados</p>
+                                <p class="text-3xl font-bold text-blue-600" id="route-services-count">0</p>
+                                <p class="text-xs text-gray-400">Perros</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xs uppercase text-gray-500 mb-1">Ingreso Estimado</p>
+                                <p class="text-3xl font-bold text-green-600" id="route-income-estimate">$0</p>
+                                <p class="text-xs text-gray-400">MXN</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de Rutas -->
+                    <div class="bg-white p-6 overflow-x-auto">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-semibold">Secuencia de Visitas</h2>
+                            <button class="text-sm bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" onclick="optimizeRoute()">
+                                🗺️ Optimizar Ruta
+                            </button>
+                        </div>
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-blue-600 text-white text-left text-sm">
+                                    <th class="p-3">Hora</th>
+                                    <th class="p-3">Mascota / Dueño</th>
+                                    <th class="p-3">Servicio / Tamaño</th>
+                                    <th class="p-3">Colonia (Ubicación)</th>
+                                    <th class="p-3">Estatus</th>
+                                    <th class="p-3">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="route-table-body">
+                                <!-- Se llena dinámicamente -->
+                            </tbody>
+                        </table>
+                        <div id="route-empty-state" class="text-center py-12 text-gray-400 hidden">
+                            <p class="text-lg mb-2">🚌 No hay servicios programados para esta zona hoy</p>
+                            <p class="text-sm">Selecciona otra zona o verifica las citas pendientes</p>
+                        </div>
+                    </div>
+
+                    <!-- Configuración de Zonas -->
+                    <div class="mt-8 bg-gray-100 p-6 rounded-lg">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold">⚙️ Configuración de Zonas</h3>
+                            <button class="text-sm bg-gray-600 text-white px-3 py-1 rounded hover:bg-gray-700" onclick="toggleZoneConfig()">
+                                Editar Zonas
+                            </button>
+                        </div>
+                        <div id="zone-config-panel" class="hidden mt-4">
+                            <p class="text-sm text-gray-600 mb-4">Define qué colonias pertenecen a cada zona para agrupar las rutas automáticamente:</p>
+                            <div class="space-y-4" id="zone-config-list">
+                                <!-- Se llena dinámicamente -->
+                            </div>
+                            <div class="flex gap-2 mt-4">
+                                <button class="text-sm bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" onclick="saveZoneConfig()">
+                                    Guardar Cambios
+                                </button>
+                                <button class="text-sm bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500" onclick="toggleZoneConfig()">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                        <div id="zone-config-preview" class="text-sm text-gray-600 space-y-2">
+                            <!-- Preview de configuración actual -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-tab-clients" class="admin-tab-content hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">Total Clientes</p><p class="text-4xl font-light" id="metric-total-clients">0</p></div>
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">🐕 Total Perros</p><p class="text-4xl font-light" id="metric-total-dogs">0</p></div>
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">🎁 Con Recompensas</p><p class="text-4xl font-light" id="metric-rewards-available">0</p></div>
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">💰 Ingresos Total</p><p class="text-4xl font-light" id="metric-lifetime-value">$0</p></div>
+                    </div>
+                    <div class="bg-white p-8">
+                        <div class="flex justify-between items-center mb-8">
+                            <h2 class="text-2xl">Dueños y sus Perritos 🐕</h2>
+                            <div class="flex gap-4">
+                                <input type="text" id="search-clients" placeholder="Buscar por nombre o teléfono..." class="text-sm border border-gray-300 px-4 py-2 w-64">
+                                <select id="filter-clients" class="text-sm border border-gray-300 px-4 py-2">
+                                    <option value="all">Todos</option>
+                                    <option value="with-rewards">Con Recompensas</option>
+                                    <option value="vip">VIP (5+ citas)</option>
+                                    <option value="multi-dog">Multi-Perro</option>
+                                    <option value="new">Nuevos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="clients-container" class="space-y-6"></div>
+                    </div>
+                </div>
+
+                <div id="admin-tab-analytics" class="admin-tab-content hidden">
+                    <!-- Métricas Principales -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-8 rounded-lg">
+                            <p class="text-sm opacity-90 mb-2">💰 Ingresos del Mes</p>
+                            <p class="text-3xl font-bold" id="analytics-month-revenue">$0</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-500 to-green-600 text-white p-8 rounded-lg">
+                            <p class="text-sm opacity-90 mb-2">📈 Ticket Promedio</p>
+                            <p class="text-3xl font-bold" id="analytics-avg-ticket">$0</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-8 rounded-lg">
+                            <p class="text-sm opacity-90 mb-2">🔄 Tasa de Retorno</p>
+                            <p class="text-3xl font-bold" id="analytics-return-rate">0%</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-8 rounded-lg">
+                            <p class="text-sm opacity-90 mb-2">⏰ Hora Pico</p>
+                            <p class="text-3xl font-bold" id="analytics-peak-hour">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Gráficos y Análisis -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- Servicio Más Popular -->
+                        <div class="bg-white p-8 rounded-lg border border-gray-200">
+                            <h3 class="text-xl mb-6 flex items-center gap-2">
+                                <span>🏆</span>
+                                <span>Servicio Más Popular</span>
+                            </h3>
+                            <div id="analytics-service-breakdown"></div>
+                        </div>
+
+                        <!-- Razas Más Atendidas -->
+                        <div class="bg-white p-8 rounded-lg border border-gray-200">
+                            <h3 class="text-xl mb-6 flex items-center gap-2">
+                                <span>🐕</span>
+                                <span>Top Razas Atendidas</span>
+                            </h3>
+                            <div id="analytics-top-breeds"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Distribución por Zona -->
+                        <div class="bg-white p-8 rounded-lg border border-gray-200">
+                            <h3 class="text-xl mb-6 flex items-center gap-2">
+                                <span>📍</span>
+                                <span>Zonas Más Activas</span>
+                            </h3>
+                            <div id="analytics-zone-distribution"></div>
+                        </div>
+
+                        <!-- Top Clientes (Rediseñado) -->
+                        <div class="bg-white p-8 rounded-lg border border-gray-200">
+                            <h3 class="text-xl mb-6 flex items-center gap-2">
+                                <span>⭐</span>
+                                <span>Clientes VIP</span>
+                            </h3>
+                            <div id="analytics-top-clients"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div id="success-modal" class="modal-minimal fixed inset-0 flex items-center justify-center hidden z-50">
+        <div class="bg-white p-16 max-w-md mx-4 text-center">
+            <p class="text-6xl mb-8">✓</p>
+            <h3 class="text-3xl mb-6">Enviado</h3>
+            <p class="text-gray-600 mb-4">Recibirás confirmación por WhatsApp</p>
+            <p id="confirmation-id" class="text-sm text-blue-600 font-mono mb-8"></p>
+            <button id="close-modal" class="btn-minimal">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="error-modal" class="modal-minimal fixed inset-0 flex items-center justify-center hidden z-50">
+        <div class="bg-white p-16 max-w-md mx-4 text-center">
+            <p class="text-6xl mb-8">⚠️</p>
+            <h3 class="text-3xl mb-6" id="error-title">Error</h3>
+            <p class="text-gray-600 mb-8" id="error-message">Ha ocurrido un error</p>
+            <button id="close-error-modal" class="btn-minimal">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="voucher-modal" class="modal-minimal fixed inset-0 flex items-center justify-center hidden z-50">
+        <div class="bg-white p-12 max-w-3xl mx-4">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl">Comprobante</h3>
+                <button id="close-voucher-modal" class="text-2xl text-gray-400 hover:text-gray-800">×</button>
+            </div>
+            <img id="voucher-modal-img" class="w-full max-h-96 object-contain" alt="Comprobante">
+            <div class="mt-8 text-center">
+                <button id="close-voucher-modal-btn" class="btn-minimal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="reward-selection-modal" class="modal-minimal fixed inset-0 flex items-center justify-center hidden z-50">
+        <div class="bg-white p-16 max-w-3xl mx-4">
+            <div class="text-center mb-12">
+                <p class="text-6xl mb-6">🎁</p>
+                <h3 class="text-3xl mb-4">Elige tu Recompensa</h3>
+                <p class="text-gray-600">Has completado 5 citas</p>
+            </div>
+            <div id="reward-options-container" class="space-y-4 mb-12"></div>
+            <div class="flex justify-between">
+                <button id="cancel-reward-selection" class="btn-minimal">Cancelar</button>
+                <button id="confirm-reward-selection" class="btn-minimal btn-primary" disabled>Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="client-history-modal" class="modal-minimal fixed inset-0 flex items-center justify-center hidden z-50 overflow-y-auto">
+        <div class="bg-white p-12 max-w-5xl mx-4 my-8">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl" id="client-history-name">Historial</h3>
+                <button id="close-client-history" class="text-2xl text-gray-400 hover:text-gray-800">×</button>
+            </div>
+            <div id="client-history-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURATION - ENVIRONMENT SETUP
+        // Set this to 'production' when deploying to live site
+        const ENVIRONMENT = 'development'; // 'development' or 'production'
+
+        const CONFIG = {
+            development: {
+                N8N_WEBHOOK_URL: "http://localhost:5678/webhook-test/privee-cita",
+                N8N_UPDATE_WEBHOOK_URL: "http://localhost:5678/webhook-test/privee-cita-update"
+            },
+            production: {
+                N8N_WEBHOOK_URL: "https://YOUR_PRODUCTION_N8N_URL.com/webhook/privee-cita",
+                N8N_UPDATE_WEBHOOK_URL: "https://YOUR_PRODUCTION_N8N_URL.com/webhook/privee-cita-update"
+            }
+        };
+
+        // Auto-select configuration based on environment
+        const N8N_WEBHOOK_URL = CONFIG[ENVIRONMENT].N8N_WEBHOOK_URL;
+        const N8N_UPDATE_WEBHOOK_URL = CONFIG[ENVIRONMENT].N8N_UPDATE_WEBHOOK_URL;
+
+        const DOGGYBUS_WHATSAPP = "6141234567"; // TODO: Cambiar por número real
+        const ADMIN_KEY = "DOGGYBUS2026"; // ⚠️ SECURITY WARNING: This is visible in browser - see security notes below
+
+        const PAYMENT_CONFIG = {
+            depositAmount: 100,
+            bankName: "BBVA", // TODO: Actualizar con datos reales
+            accountHolder: "DoggyBus Spa Canino", // TODO: Actualizar con datos reales
+            accountNumber: "1234 5678 9012 3456" // TODO: Actualizar con datos reales
+        };
+
+        // Pricing dinámico por tamaño de perro
+        const PRICING_BY_SIZE = {
+            "bano-estandar": {
+                pequeno: 300,    // 0-10 kg
+                mediano: 350,    // 11-25 kg
+                grande: 450,     // 26-45 kg
+                gigante: 550     // +45 kg
+            },
+            "estetica-completa": {
+                pequeno: 450,    // 0-10 kg
+                mediano: 550,    // 11-25 kg
+                grande: 700,     // 26-45 kg
+                gigante: 900     // +45 kg
+            }
+        };
+
+        const SERVICES_CONFIG = {
+            basic: [
+                {
+                    id: "bano-estandar",
+                    name: "Baño Estándar",
+                    priceRange: "desde $300",
+                    basePrice: 350,
+                    icon: "🛁",
+                    image: "bano-perro.png",
+                    description: "Champú orgánico, secado express, limpieza de oídos y perfume • ⏱️ 45-60 min",
+                    duration: 60 // minutos
+                }
+            ],
+            plus: [
+                {
+                    id: "estetica-completa",
+                    name: "Estética Completa",
+                    priceRange: "desde $450",
+                    basePrice: 550,
+                    icon: "✂️",
+                    image: "estetica-perro.png",
+                    description: "Corte de pelo según la raza, baño profundo, corte de garras y spa • ⏱️ 90-120 min",
+                    duration: 90 // minutos
+                }
+            ],
+            luxury: []
+        };
+
+        // Configuración de duración de servicios y tiempos de viaje
+        const SERVICE_DURATION = {
+            "bano-estandar": 60,      // 1 hora
+            "estetica-completa": 90   // 1.5 horas
+        };
+
+        const TRAVEL_TIME = {
+            sameZone: 15,      // 15 min entre citas en la misma zona
+            differentZone: 30  // 30 min entre zonas diferentes
+        };
+
+        const REWARDS_CONFIG = {
+            appointmentsRequired: 5,
+            options: [
+                { id: "bano-free", label: "Baño Estándar Gratis", description: "Servicio completo sin costo", icon: "🛁" },
+                { id: "50-discount", label: "50% OFF", description: "50% descuento en cualquier servicio", icon: "💰" },
+                { id: "20-plus", label: "20% OFF Plus", description: "20% en Estética Completa", icon: "✂️" }
+            ]
+        };
+    </script>
+    <script>
+        let allServices = [...SERVICES_CONFIG.basic, ...SERVICES_CONFIG.plus, ...SERVICES_CONFIG.luxury];
+        const MOCK_CLIENTS = {
+            "6141234567":{phone:"6141234567",name:"María García López",firstVisit:"2026-05-15",totalAppointments:2,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:2,totalSpent:1150,notes:"Tiene 2 perros: Max y Bella",tags:["Multi-Perro"],alerts:[],appointments:["APT001","APT008"]},
+            "6149876543":{phone:"6149876543",name:"Ana Martínez",firstVisit:"2026-06-01",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:1650,notes:"Cliente frecuente con 2 perros",tags:["Multi-Perro"],alerts:[],appointments:["APT002","APT012"]},
+            "6145551234":{phone:"6145551234",name:"Sofía Hernández",firstVisit:"2026-05-20",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:2000,notes:"Tiene 2 pastor alemán gigantes",tags:["Multi-Perro"],alerts:[],appointments:["APT003","APT015"]},
+            "6147778888":{phone:"6147778888",name:"Carlos Ruiz",firstVisit:"2026-05-01",totalAppointments:6,rewardsAvailable:1,rewardsRedeemed:0,currentProgress:1,totalSpent:2100,notes:"Cliente VIP, 2 chihuahuas",tags:["VIP","Multi-Perro"],alerts:[],appointments:["APT004","APT011"]},
+            "6143334444":{phone:"6143334444",name:"Juan Pérez",firstVisit:"2026-05-10",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:1350,notes:"2 labradores grandes",tags:["Multi-Perro"],alerts:[],appointments:["APT005","APT013"]},
+            "6145556666":{phone:"6145556666",name:"Laura Sánchez",firstVisit:"2026-05-25",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:1450,notes:"2 poodles, prefiere cortes especiales",tags:["Multi-Perro"],alerts:[],appointments:["APT006","APT014"]},
+            "6142223333":{phone:"6142223333",name:"Roberto Díaz",firstVisit:"2026-06-08",totalAppointments:1,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:1,totalSpent:350,notes:"Bulldog con problemas respiratorios",tags:["Nuevo"],alerts:[],appointments:["APT007"]},
+            "6147771111":{phone:"6147771111",name:"Patricia Gómez",firstVisit:"2026-06-07",totalAppointments:1,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:1,totalSpent:300,notes:"Yorkshire pequeño",tags:["Nuevo"],alerts:[],appointments:["APT009"]},
+            "6148889999":{phone:"6148889999",name:"Miguel Torres",firstVisit:"2026-06-07",totalAppointments:1,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:1,totalSpent:700,notes:"Husky con mucho pelo",tags:["Nuevo"],alerts:[],appointments:["APT010"]}
+        };
+        const MOCK_APPOINTMENTS = [
+            // Citas de hoy (2026-06-10)
+            {id:"APT001",date:"2026-06-10",time:"09:00",petName:"Max",petBreed:"labrador",petSize:"grande",petNotes:"Muy juguetón, le gusta el agua",clientName:"María García López",clientPhone:"6141234567",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:450,address:{street:"Av. Universidad #1234",colonia:"San Felipe",references:"Casa beige con portón negro"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT002",date:"2026-06-10",time:"10:30",petName:"Luna",petBreed:"schnauzer",petSize:"mediano",petNotes:"Nerviosa con el secador",clientName:"Ana Martínez",clientPhone:"6149876543",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:550,address:{street:"Calle Morelos #567",colonia:"Centro",references:"Edificio de departamentos, #302"},status:"en-route",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT003",date:"2026-06-10",time:"12:00",petName:"Rocky",petBreed:"pastor-aleman",petSize:"gigante",petNotes:"Agresivo con extraños, usar bozal",clientName:"Sofía Hernández",clientPhone:"6145551234",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:550,address:{street:"Blvd. Teófilo #890",colonia:"Quintas del Sol",references:"Edificio azul, tocar timbre 2 veces"},status:"apartada",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT004",date:"2026-06-10",time:"14:00",petName:"Kiwi",petBreed:"chihuahua",petSize:"pequeno",petNotes:"Tiembla mucho, es normal",clientName:"Carlos Ruiz",clientPhone:"6147778888",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:450,address:{street:"Calle Lira #123",colonia:"Panamericana",references:"Casa verde con jardín"},status:"pending-payment",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+
+            // Citas completadas de días anteriores (para analytics)
+            {id:"APT005",date:"2026-06-09",time:"10:00",petName:"Firulais",petBreed:"golden-retriever",petSize:"grande",petNotes:"",clientName:"Juan Pérez",clientPhone:"6143334444",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:450,address:{street:"Av. Las Torres #234",colonia:"Vista Hermosa",references:"Casa esquina"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT006",date:"2026-06-09",time:"11:30",petName:"Coco",petBreed:"poodle",petSize:"mediano",petNotes:"Necesita corte especial raza",clientName:"Laura Sánchez",clientPhone:"6145556666",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:550,address:{street:"Calle Juárez #789",colonia:"Zona Dorada",references:"Local comercial al lado"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT007",date:"2026-06-08",time:"09:30",petName:"Zeus",petBreed:"bulldog",petSize:"mediano",petNotes:"Problemas respiratorios, cuidado",clientName:"Roberto Díaz",clientPhone:"6142223333",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:350,address:{street:"Av. Tecnológico #456",colonia:"Campestre",references:"Casa dos pisos amarilla"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT008",date:"2026-06-08",time:"14:00",petName:"Bella",petBreed:"labrador",petSize:"grande",petNotes:"Segunda visita, muy tranquila",clientName:"María García López",clientPhone:"6141234567",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:700,address:{street:"Av. Universidad #1234",colonia:"San Felipe",references:"Casa beige con portón negro"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT009",date:"2026-06-07",time:"10:00",petName:"Toby",petBreed:"yorkshire",petSize:"pequeno",petNotes:"",clientName:"Patricia Gómez",clientPhone:"6147771111",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:300,address:{street:"Calle Independencia #321",colonia:"Colonia Obrera",references:"Casa naranja"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT010",date:"2026-06-07",time:"11:00",petName:"Simba",petBreed:"husky",petSize:"grande",petNotes:"Tiene mucho pelo, tarda más",clientName:"Miguel Torres",clientPhone:"6148889999",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:700,address:{street:"Av. Mirador #678",colonia:"Las Haciendas",references:"Reja blanca"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT011",date:"2026-06-06",time:"09:00",petName:"Lola",petBreed:"chihuahua",petSize:"pequeno",petNotes:"Cliente frecuente, 5ta visita",clientName:"Carlos Ruiz",clientPhone:"6147778888",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:300,address:{street:"Calle Lira #123",colonia:"Panamericana",references:"Casa verde con jardín"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT012",date:"2026-06-06",time:"13:00",petName:"Chispas",petBreed:"schnauzer",petSize:"mediano",petNotes:"Le gusta mucho el corte",clientName:"Ana Martínez",clientPhone:"6149876543",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:550,address:{street:"Calle Morelos #567",colonia:"Centro",references:"Edificio de departamentos, #302"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT013",date:"2026-06-05",time:"10:30",petName:"Manchas",petBreed:"labrador",petSize:"grande",petNotes:"",clientName:"Juan Pérez",clientPhone:"6143334444",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:450,address:{street:"Av. Las Torres #234",colonia:"Vista Hermosa",references:"Casa esquina"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT014",date:"2026-06-05",time:"15:00",petName:"Princesa",petBreed:"poodle",petSize:"pequeno",petNotes:"Corte estilo cachorro",clientName:"Laura Sánchez",clientPhone:"6145556666",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:450,address:{street:"Calle Juárez #789",colonia:"Zona Dorada",references:"Local comercial al lado"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
+            {id:"APT015",date:"2026-06-04",time:"11:00",petName:"Thor",petBreed:"pastor-aleman",petSize:"gigante",petNotes:"Segunda visita, ya está más tranquilo",clientName:"Sofía Hernández",clientPhone:"6145551234",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:900,address:{street:"Blvd. Teófilo #890",colonia:"Quintas del Sol",references:"Edificio azul, tocar timbre 2 veces"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="}
+        ];
+
+        if (!localStorage.getItem('appointments')) localStorage.setItem('appointments', JSON.stringify(MOCK_APPOINTMENTS));
+        if (!localStorage.getItem('clients')) localStorage.setItem('clients', JSON.stringify(MOCK_CLIENTS));
+
+        let bookingData = {
+            service: '',
+            serviceName: '',
+            price: '',
+            date: '',
+            time: '',
+            petName: '',
+            petBreed: '',
+            petSize: '',
+            petNotes: '',
+            clientName: '',
+            clientPhone: '',
+            clientStreet: '',
+            clientColonia: '',
+            clientReferences: '',
+            voucherImage: '',
+            metodoPago: 'deposito', // 'deposito' o 'codi'
+            transaccionId: null
+        };
+        let currentView = 'landing', trackingRefreshInterval = null, selectedReward = null;
+
+        // Offline form persistence with localStorage
+        function saveBookingData() {
+            try {
+                localStorage.setItem('doggybus_booking_draft', JSON.stringify(bookingData));
+
+                // Show auto-save indicator briefly
+                const indicator = document.getElementById('autosave-indicator');
+                if (indicator) {
+                    indicator.style.opacity = '1';
+                    setTimeout(() => {
+                        indicator.style.opacity = '0';
+                    }, 1500);
+                }
+            } catch (e) {
+                console.error('Failed to save booking data:', e);
+            }
+        }
+
+        function loadBookingData() {
+            try {
+                const saved = localStorage.getItem('doggybus_booking_draft');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    bookingData = data;
+
+                    // Restore form fields if data exists
+                    if (data.service) {
+                        // Restore service selection
+                        setTimeout(() => {
+                            const serviceCard = document.querySelector(`.service-selector[data-service="${data.service}"]`);
+                            if (serviceCard) {
+                                serviceCard.classList.add('selected');
+                                document.getElementById('btn-step-1').disabled = false;
+                            }
+                        }, 100);
+                    }
+                    if (data.date && document.getElementById('appointment-date')) document.getElementById('appointment-date').value = data.date;
+                    if (data.time && document.getElementById('appointment-time')) document.getElementById('appointment-time').value = data.time;
+                    if (data.petName && document.getElementById('pet-name')) document.getElementById('pet-name').value = data.petName;
+                    if (data.petBreed && document.getElementById('pet-breed')) document.getElementById('pet-breed').value = data.petBreed;
+                    if (data.petSize && document.getElementById('pet-size')) document.getElementById('pet-size').value = data.petSize;
+                    if (data.petNotes && document.getElementById('pet-notes')) document.getElementById('pet-notes').value = data.petNotes;
+                    if (data.clientName && document.getElementById('client-name')) document.getElementById('client-name').value = data.clientName;
+                    if (data.clientPhone && document.getElementById('client-phone')) document.getElementById('client-phone').value = data.clientPhone;
+                    if (data.clientStreet && document.getElementById('client-street')) document.getElementById('client-street').value = data.clientStreet;
+                    if (data.clientColonia && document.getElementById('client-colonia')) document.getElementById('client-colonia').value = data.clientColonia;
+                    if (data.clientReferences && document.getElementById('client-references')) document.getElementById('client-references').value = data.clientReferences;
+
+                    return true;
+                }
+            } catch (e) {
+                console.error('Failed to load booking data:', e);
+            }
+            return false;
+        }
+
+        function clearBookingData() {
+            try {
+                localStorage.removeItem('doggybus_booking_draft');
+            } catch (e) {
+                console.error('Failed to clear booking data:', e);
+            }
+        }
+
+        function initRouter() {
+            const urlParams = new URLSearchParams(window.location.search), view = urlParams.get('view'), appointmentId = urlParams.get('appointmentId'), adminKey = urlParams.get('key');
+            if (view === 'track') {
+                if (appointmentId) loadTrackingView(appointmentId);
+                else { showError('No encontrada', 'Verifica el enlace'); goToView('landing'); }
+            } else if (view === 'admin' || view === 'clients' || view === 'analytics') {
+                if (adminKey === ADMIN_KEY) loadAdminView();
+                else { showError('Acceso Denegado', 'Sin permisos'); setTimeout(() => goToView('landing'), 2000); }
+            } else goToView('landing');
+        }
+
+        function goToView(view) {
+            document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+            const targetView = document.getElementById(`view-${view}`);
+            if (targetView) {
+                targetView.classList.add('active');
+                currentView = view;
+                if (view === 'landing') window.history.pushState({}, '', window.location.pathname);
+                if (view !== 'track' && trackingRefreshInterval) clearInterval(trackingRefreshInterval);
+            }
+        }
+
+        // Genera placeholders SVG para servicios sin imagen
+        function getServicePlaceholder(icon, serviceName) {
+            return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%232563EB;stop-opacity:0.1'/%3E%3Cstop offset='100%25' style='stop-color:%2393C5FD;stop-opacity:0.2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='600' fill='url(%23grad)'/%3E%3Ctext x='400' y='300' font-size='120' text-anchor='middle' dominant-baseline='middle'%3E${icon}%3C/text%3E%3Ctext x='400' y='420' font-size='32' text-anchor='middle' font-family='Inter, sans-serif' fill='%231E293B' font-weight='600'%3E${serviceName}%3C/text%3E%3C/svg%3E`;
+        }
+
+        function renderServices() {
+            const grid = document.getElementById('services-grid'), selector = document.getElementById('service-selector-grid');
+
+            if (!selector) {
+                console.error('❌ service-selector-grid not found!');
+                return;
+            }
+
+            grid.innerHTML = selector.innerHTML = '';
+            allServices.forEach(s => {
+                const imageSrc = getServicePlaceholder(s.icon, s.name);
+
+                // Obtener rango de precios para este servicio
+                const priceRange = PRICING_BY_SIZE[s.id];
+                const minPrice = priceRange ? Math.min(...Object.values(priceRange)) : s.basePrice;
+                const maxPrice = priceRange ? Math.max(...Object.values(priceRange)) : s.basePrice;
+                const priceDisplay = priceRange ? `$${minPrice} - $${maxPrice}` : `$${s.basePrice}`;
+                const priceLabel = priceRange ? `desde $${minPrice}` : s.priceRange || `$${s.basePrice}`;
+
+                // Gallery section - large editorial cards with placeholder images
+                grid.innerHTML += `
+                    <div class="card-minimal service-minimal" style="padding: 0; overflow: hidden;" data-service-id="${s.id}">
+                        <img src="${imageSrc}" alt="${s.name}" style="width: 100%; height: 320px; object-fit: cover; object-position: center;">
+                        <div style="padding: 32px 24px; text-align: center;">
+                            <h3 class="text-2xl mb-3">${s.icon} ${s.name}</h3>
+                            <p class="text-sm text-gray-500 mb-6">${s.description}</p>
+                            <p class="text-3xl font-light mb-2">${priceDisplay}</p>
+                            <p class="text-xs text-gray-400">MXN • Precio según tamaño</p>
+                        </div>
+                    </div>
+                `;
+
+                // Booking wizard - compact cards with placeholder images
+                selector.innerHTML += `
+                    <div class="service-card-luxury service-selector" data-service="${s.id}" data-base-price="${s.basePrice}">
+                        <div class="service-image">
+                            <span class="checkmark">✓</span>
+                            <img src="${imageSrc}" alt="${s.name}" style="width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute; top: 0; left: 0;">
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-name">${s.icon} ${s.name}</h3>
+                            <p class="service-price">${priceLabel} <span class="currency">MXN</span></p>
+                            <p class="text-xs text-gray-500 mt-2">Precio final según tamaño</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Add click handlers to booking wizard service cards
+            document.querySelectorAll('.service-selector').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.service-selector').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    bookingData.service = this.dataset.service;
+                    bookingData.price = this.dataset.basePrice; // Precio base temporal, se actualizará según tamaño
+                    bookingData.serviceName = this.querySelector('.service-name').textContent;
+                    document.getElementById('btn-step-1').disabled = false;
+                    saveBookingData();
+
+                    // Auto-scroll to "Continuar" button after selection
+                    setTimeout(() => {
+                        const continueBtn = document.getElementById('btn-step-1');
+                        if (continueBtn) {
+                            continueBtn.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest'
+                            });
+
+                            // Brief visual pulse on button to draw attention
+                            continueBtn.style.transform = 'scale(1.05)';
+                            setTimeout(() => {
+                                continueBtn.style.transform = 'scale(1)';
+                            }, 200);
+                        }
+                    }, 400);
+                });
+            });
+
+            // Add click handlers to gallery service cards (Nuestros Servicios section)
+            // When clicked, scroll to booking and pre-select the service
+            document.querySelectorAll('#services-grid .service-minimal').forEach((card, index) => {
+                card.addEventListener('click', function() {
+                    const service = allServices[index];
+
+                    // Update booking data immediately
+                    bookingData.service = service.id;
+                    bookingData.price = service.basePrice; // Precio base temporal, se actualizará según tamaño
+                    bookingData.serviceName = service.name;
+                    saveBookingData();
+
+                    // Smooth scroll to booking section
+                    setTimeout(() => {
+                        document.getElementById('agendar').scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+
+                    // After scroll, select service and go directly to Step 2 (datos del perro)
+                    setTimeout(() => {
+                        // Deselect all booking cards
+                        document.querySelectorAll('.service-selector').forEach(c => c.classList.remove('selected'));
+
+                        // Find and select the matching service card
+                        const targetCard = document.querySelector(`.service-selector[data-service="${service.id}"]`);
+                        if (targetCard) {
+                            targetCard.classList.add('selected');
+                        }
+
+                        // Go directly to Step 2 (skip redundant selection)
+                        goToStep(2);
+                    }, 800);
+                });
+            });
+        }
+
+        document.getElementById('bank-name').textContent = PAYMENT_CONFIG.bankName;
+        document.getElementById('account-holder').textContent = PAYMENT_CONFIG.accountHolder;
+        document.getElementById('account-number').textContent = PAYMENT_CONFIG.accountNumber;
+
+        const btnStep1 = document.getElementById('btn-step-1');
+        const btnStep2 = document.getElementById('btn-step-2');
+        const btnStep3 = document.getElementById('btn-step-3');
+        const btnStep4 = document.getElementById('btn-step-4');
+        const btnConfirm = document.getElementById('btn-confirm');
+        const appointmentDate = document.getElementById('appointment-date');
+        const appointmentTime = document.getElementById('appointment-time');
+        const voucherUpload = document.getElementById('voucher-upload');
+        const uploadArea = document.getElementById('upload-area');
+
+        btnStep1.addEventListener('click', () => goToStep(2));
+        document.getElementById('btn-back-to-1').addEventListener('click', () => goToStep(1));
+        document.getElementById('btn-back-to-2').addEventListener('click', () => goToStep(2));
+        document.getElementById('btn-back-to-3').addEventListener('click', () => goToStep(3));
+        document.getElementById('btn-back-to-4').addEventListener('click', () => goToStep(4));
+
+        // Validación Step 2: Datos del perro
+        function checkStep2Complete() {
+            const petName = document.getElementById('pet-name').value;
+            const petBreed = document.getElementById('pet-breed').value;
+            const petSize = document.getElementById('pet-size').value;
+
+            if (petName && petBreed && petSize) {
+                btnStep2.disabled = false;
+            } else {
+                btnStep2.disabled = true;
+            }
+        }
+
+        // Listeners para validar step 2
+        document.getElementById('pet-name').addEventListener('input', checkStep2Complete);
+        document.getElementById('pet-breed').addEventListener('change', checkStep2Complete);
+        document.getElementById('pet-size').addEventListener('change', checkStep2Complete);
+
+        // Validación Step 3: Dirección
+        function checkStep3Complete() {
+            const clientName = document.getElementById('client-name').value;
+            const clientPhone = document.getElementById('client-phone').value;
+            const clientStreet = document.getElementById('client-street').value;
+            const clientColonia = document.getElementById('client-colonia').value;
+            const clientReferences = document.getElementById('client-references').value;
+
+            if (clientName && clientPhone && clientStreet && clientColonia && clientReferences) {
+                btnStep3.disabled = false;
+            } else {
+                btnStep3.disabled = true;
+            }
+        }
+
+        // Listeners para validar step 3
+        document.getElementById('client-name').addEventListener('input', checkStep3Complete);
+        document.getElementById('client-phone').addEventListener('input', checkStep3Complete);
+        document.getElementById('client-street').addEventListener('input', checkStep3Complete);
+        document.getElementById('client-colonia').addEventListener('input', checkStep3Complete);
+        document.getElementById('client-references').addEventListener('input', checkStep3Complete);
+
+        // Validación Step 4: Fecha y Hora
+        appointmentDate.min = new Date().toISOString().split('T')[0];
+        appointmentDate.addEventListener('change', function() {
+            const selectedDate = new Date(this.value + 'T00:00:00'), dayOfWeek = selectedDate.getDay();
+            appointmentTime.innerHTML = '<option value="">Seleccionar</option>';
+
+            if (dayOfWeek === 0) {
+                appointmentTime.innerHTML = '<option value="">Cerrado los domingos</option>';
+                appointmentTime.disabled = true;
+                btnStep4.disabled = true;
+                return;
+            }
+
+            appointmentTime.disabled = false;
+            let startHour = 9, endHour = dayOfWeek === 6 ? 14 : 19;
+
+            // Obtener servicio y colonia para verificar disponibilidad
+            const currentService = bookingData.service;
+            const currentColonia = bookingData.address?.colonia || document.getElementById('client-colonia')?.value || '';
+
+            for (let h = startHour; h < endHour; h++) {
+                const time24 = `${h.toString().padStart(2, '0')}:00`;
+                const time12 = h > 12 ? `${h - 12}:00 PM` : (h === 12 ? `12:00 PM` : `${h}:00 AM`);
+
+                // Verificar si el horario está disponible
+                const availability = isTimeSlotAvailable(this.value, time24, currentService, currentColonia);
+
+                if (availability.available) {
+                    appointmentTime.innerHTML += `<option value="${time24}">${time12}</option>`;
+                } else {
+                    // Mostrar horario deshabilitado con razón
+                    appointmentTime.innerHTML += `<option value="${time24}" disabled>${time12} - ${availability.reason}</option>`;
+                }
+            }
+
+            checkStep4Complete();
+        });
+
+        appointmentTime.addEventListener('change', checkStep4Complete);
+
+        function checkStep4Complete() {
+            if (appointmentDate.value && appointmentTime.value) {
+                bookingData.date = appointmentDate.value;
+                bookingData.time = appointmentTime.value;
+                btnStep4.disabled = false;
+                saveBookingData();
+            } else {
+                btnStep4.disabled = true;
+            }
+        }
+
+        // STEP 2: Validar datos del perro y calcular precio
+        btnStep2.addEventListener('click', function(e) {
+            e.preventDefault();
+            const petForm = document.getElementById('pet-form');
+            if (!petForm.checkValidity()) { petForm.reportValidity(); return; }
+
+            bookingData.petName = document.getElementById('pet-name').value;
+            bookingData.petBreed = document.getElementById('pet-breed').value;
+            bookingData.petSize = document.getElementById('pet-size').value;
+            bookingData.petNotes = document.getElementById('pet-notes').value;
+
+            // IMPORTANTE: Calcular precio final basado en tamaño del perro
+            if (bookingData.service && bookingData.petSize) {
+                const finalPrice = calculateDynamicPrice(bookingData.service, bookingData.petSize);
+                if (finalPrice) {
+                    bookingData.price = finalPrice;
+                }
+            }
+
+            saveBookingData();
+            goToStep(3);
+        });
+
+        function updateSummary() {
+            document.getElementById('summary-service').textContent = bookingData.serviceName;
+            document.getElementById('summary-price').textContent = '$' + bookingData.price;
+            const dateObj = new Date(bookingData.date + 'T00:00:00');
+            document.getElementById('summary-date').textContent = dateObj.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const [hour, minute] = bookingData.time.split(':'), hourNum = parseInt(hour);
+            document.getElementById('summary-time').textContent = hourNum > 12 ? `${hourNum - 12}:${minute} PM` : `${hourNum}:${minute} AM`;
+        }
+
+        document.getElementById('client-phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 10);
+        });
+
+        // Función para calcular precio dinámico por tamaño
+        function calculateDynamicPrice(serviceId, petSize) {
+            if (!serviceId || !petSize) return null;
+            return PRICING_BY_SIZE[serviceId]?.[petSize] || null;
+        }
+
+        // Actualizar precio en tiempo real cuando cambia el tamaño del perro
+        document.addEventListener('DOMContentLoaded', function() {
+            const petSizeSelect = document.getElementById('pet-size');
+            if (petSizeSelect) {
+                petSizeSelect.addEventListener('change', function() {
+                    const petSize = this.value;
+                    const serviceId = bookingData.service;
+
+                    if (serviceId && petSize) {
+                        const newPrice = calculateDynamicPrice(serviceId, petSize);
+                        if (newPrice) {
+                            bookingData.price = newPrice;
+
+                            // Actualizar resumen visual
+                            const summaryPrice = document.getElementById('summary-price');
+                            if (summaryPrice) {
+                                summaryPrice.textContent = `$${newPrice} MXN`;
+                            }
+
+                            // Highlight del precio seleccionado en la tabla
+                            highlightSelectedPrice(petSize);
+
+                            saveBookingData();
+
+                            // Mostrar notificación de precio actualizado
+                            showPriceUpdate(petSize, newPrice);
+                        }
+                    }
+                });
+            }
+        });
+
+        function showPriceUpdate(size, price) {
+            const sizeLabels = {
+                pequeno: 'Pequeño',
+                mediano: 'Mediano',
+                grande: 'Grande',
+                gigante: 'Gigante'
+            };
+
+            // Mostrar brevemente en el indicator
+            const indicator = document.getElementById('autosave-indicator');
+            if (indicator) {
+                indicator.textContent = `Precio actualizado: ${sizeLabels[size]} - $${price} MXN ✓`;
+                indicator.style.opacity = '1';
+                setTimeout(() => {
+                    indicator.textContent = 'Borrador guardado ✓';
+                    indicator.style.opacity = '0';
+                }, 2500);
+            }
+        }
+
+        // STEP 3: Validar dirección y contacto
+        btnStep3.addEventListener('click', function(e) {
+            e.preventDefault();
+            const addressForm = document.getElementById('address-form');
+            if (!addressForm.checkValidity()) { addressForm.reportValidity(); return; }
+
+            bookingData.clientName = document.getElementById('client-name').value;
+            bookingData.clientPhone = document.getElementById('client-phone').value;
+            bookingData.clientStreet = document.getElementById('client-street').value;
+            bookingData.clientColonia = document.getElementById('client-colonia').value;
+            bookingData.clientReferences = document.getElementById('client-references').value;
+
+            // También guardar en formato address para compatibilidad
+            bookingData.address = {
+                street: bookingData.clientStreet,
+                colonia: bookingData.clientColonia,
+                references: bookingData.clientReferences
+            };
+
+            saveBookingData();
+            goToStep(4);
+        });
+
+        // STEP 4: Validar fecha y hora
+        btnStep4.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            if (!bookingData.date || !bookingData.time) {
+                alert('Por favor selecciona fecha y hora');
+                return;
+            }
+
+            saveBookingData();
+            goToStep(5);
+        });
+
+        // Payment Method Selector Handler
+        document.querySelectorAll('.payment-method-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const method = this.dataset.method;
+
+                // Update selection UI
+                document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+
+                // Update bookingData
+                bookingData.metodoPago = method;
+
+                // Show/hide appropriate containers
+                const codiContainer = document.getElementById('codi-container');
+                const depositoContainer = document.getElementById('deposito-container');
+                const btnConfirm = document.getElementById('btn-confirm');
+
+                if (method === 'codi') {
+                    // Show CoDi, hide Depósito
+                    codiContainer.classList.remove('hidden');
+                    depositoContainer.classList.add('hidden');
+
+                    // Generate transaction ID
+                    bookingData.transaccionId = 'CODI_' + Date.now();
+
+                    // Enable confirm button immediately (no image required)
+                    btnConfirm.disabled = false;
+
+                    console.log('CoDi selected. Transaction ID:', bookingData.transaccionId);
+                } else {
+                    // Show Depósito, hide CoDi
+                    codiContainer.classList.add('hidden');
+                    depositoContainer.classList.remove('hidden');
+
+                    // Reset transaction ID
+                    bookingData.transaccionId = null;
+
+                    // Disable confirm button until image is uploaded
+                    if (!bookingData.voucherImage) {
+                        btnConfirm.disabled = true;
+                    }
+
+                    console.log('Depósito selected');
+                }
+
+                saveBookingData();
+            });
+        });
+
+        // CoDi - Open Banking App button (placeholder for now)
+        document.getElementById('btn-open-banking-app').addEventListener('click', function() {
+            alert('Esta función abrirá tu app bancaria para completar el pago CoDi.\n\nPor ahora, presiona "Confirmar Cita" para continuar.');
+        });
+
+        // Copy CLABE Button Handler
+        document.getElementById('btn-copy-clabe').addEventListener('click', async function() {
+            const clabeNumber = document.getElementById('account-number').textContent;
+            const btn = this;
+            const icon = btn.querySelector('.icon');
+            const text = btn.querySelector('.text');
+            const successMsg = document.getElementById('copy-success-msg');
+
+            try {
+                // Copy to clipboard
+                await navigator.clipboard.writeText(clabeNumber);
+
+                // Visual feedback animation
+                btn.classList.add('copied');
+                icon.textContent = '✓';
+                text.textContent = 'Copiado';
+                successMsg.style.opacity = '1';
+
+                // Haptic feedback (if supported)
+                if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                }
+
+                // Revert after 2 seconds
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    icon.textContent = '📋';
+                    text.textContent = 'Copiar CLABE';
+                    successMsg.style.opacity = '0';
+                }, 2000);
+
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = clabeNumber;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    btn.classList.add('copied');
+                    icon.textContent = '✓';
+                    text.textContent = 'Copiado';
+                    successMsg.style.opacity = '1';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        icon.textContent = '📋';
+                        text.textContent = 'Copiar CLABE';
+                        successMsg.style.opacity = '0';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Copy failed:', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        });
+
+        uploadArea.addEventListener('click', () => voucherUpload.click());
+        voucherUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (!file.type.startsWith('image/')) { showError('Inválido', 'Solo imágenes'); this.value = ''; return; }
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    bookingData.voucherImage = event.target.result;
+                    document.getElementById('voucher-preview-img').src = event.target.result;
+                    document.getElementById('upload-placeholder').classList.add('hidden');
+                    document.getElementById('upload-preview').classList.remove('hidden');
+                    uploadArea.classList.add('has-file');
+                    btnConfirm.disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('remove-voucher').addEventListener('click', (e) => {
+            e.stopPropagation();
+            voucherUpload.value = '';
+            bookingData.voucherImage = '';
+            document.getElementById('upload-placeholder').classList.remove('hidden');
+            document.getElementById('upload-preview').classList.add('hidden');
+            uploadArea.classList.remove('has-file');
+            btnConfirm.disabled = true;
+        });
+
+        btnConfirm.addEventListener('click', async function(e) {
+            e.preventDefault();
+
+            // Validation: Si es Depósito, requiere imagen
+            if (bookingData.metodoPago === 'deposito' && !bookingData.voucherImage) {
+                showError('Requerido', 'Sube tu comprobante de pago');
+                return;
+            }
+
+            // Update button UI
+            document.getElementById('btn-confirm-text').textContent = 'Enviando...';
+            btnConfirm.disabled = true;
+
+            try {
+                // Prepare payload according to backend structure
+                const payload = {
+                    service: bookingData.service,
+                    serviceName: bookingData.serviceName,
+                    price: parseFloat(bookingData.price),
+                    date: bookingData.date,
+                    time: bookingData.time,
+                    petName: bookingData.petName,
+                    petBreed: bookingData.petBreed,
+                    petSize: bookingData.petSize,
+                    petNotes: bookingData.petNotes,
+                    clientName: bookingData.clientName,
+                    clientPhone: bookingData.clientPhone,
+                    address: {
+                        street: bookingData.clientStreet,
+                        colonia: bookingData.clientColonia,
+                        references: bookingData.clientReferences
+                    },
+                    voucherImage: bookingData.metodoPago === 'codi' ? null : bookingData.voucherImage,
+                    metodoPago: bookingData.metodoPago, // 'deposito' o 'codi'
+                    transaccionId: bookingData.transaccionId, // ID digital o null
+                    status: 'pending-payment',
+                    timestamp: new Date().toISOString()
+                };
+
+                console.log('📤 Sending booking to n8n:', payload);
+
+                let webhookSuccess = false;
+                let databaseId = null;
+
+                // Try sending to n8n webhook
+                try {
+                    const response = await fetch(N8N_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log('✅ Booking sent to n8n:', result);
+
+                        // Capturar el ID real generado por PostgreSQL
+                        if (result.id_confirmado) {
+                            databaseId = result.id_confirmado;
+                            webhookSuccess = true;
+                            console.log('🆔 Database ID received:', databaseId);
+                        } else if (result[0]?.id_confirmado) {
+                            // N8N a veces retorna array
+                            databaseId = result[0].id_confirmado;
+                            webhookSuccess = true;
+                            console.log('🆔 Database ID received (array format):', databaseId);
+                        } else {
+                            console.warn('⚠️ n8n responded but no id_confirmado found in:', result);
+                        }
+                    } else {
+                        console.warn('⚠️ n8n webhook failed, saving locally only');
+                    }
+                } catch (webhookError) {
+                    console.warn('⚠️ n8n webhook not available (development mode), saving locally:', webhookError.message);
+                }
+
+                // ALWAYS save to localStorage (for conflict detection and admin panel)
+                const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+
+                // Usar ID real de base de datos si existe, sino generar temporal
+                const appointmentId = databaseId || `apt_temp_${Date.now()}`;
+
+                appointments.push({
+                    ...payload,
+                    id: appointmentId,
+                    status: 'pending-payment',
+                    syncedWithDB: webhookSuccess  // Flag para saber si está en DB real
+                });
+
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                console.log('💾 Appointment saved to localStorage:', {
+                    id: appointmentId,
+                    total: appointments.length,
+                    source: databaseId ? 'PostgreSQL' : 'Local (temp)'
+                });
+
+                // Show success modal con ID de confirmación
+                const confirmationIdElement = document.getElementById('confirmation-id');
+                if (databaseId) {
+                    confirmationIdElement.textContent = `ID: ${databaseId}`;
+                } else {
+                    confirmationIdElement.textContent = '';
+                }
+                document.getElementById('success-modal').classList.remove('hidden');
+
+                // Reset booking after short delay
+                setTimeout(() => {
+                    resetBooking();
+                    goToStep(1);
+                }, 2000);
+
+            } catch (error) {
+                console.error('❌ Booking failed:', error);
+                showError('Error', 'No se pudo confirmar tu cita. Intenta nuevamente.');
+                document.getElementById('btn-confirm-text').textContent = 'Confirmar Cita';
+                btnConfirm.disabled = false;
+            }
+        });
+
+        document.getElementById('close-modal').addEventListener('click', () => document.getElementById('success-modal').classList.add('hidden'));
+        document.getElementById('close-error-modal').addEventListener('click', () => document.getElementById('error-modal').classList.add('hidden'));
+
+        // Mostrar tabla de precios según el servicio seleccionado
+        function showPriceTable() {
+            const serviceId = bookingData.service;
+            if (!serviceId) return;
+
+            const priceTable = document.getElementById('price-table');
+            const priceTableContent = document.getElementById('price-table-content');
+
+            if (!priceTable || !priceTableContent) return;
+
+            const prices = PRICING_BY_SIZE[serviceId];
+            if (!prices) {
+                priceTable.style.display = 'none';
+                return;
+            }
+
+            const sizeLabels = {
+                pequeno: 'Pequeño (0-10 kg)',
+                mediano: 'Mediano (11-25 kg)',
+                grande: 'Grande (26-45 kg)',
+                gigante: 'Gigante (+45 kg)'
+            };
+
+            priceTableContent.innerHTML = Object.entries(prices)
+                .map(([size, price]) => `
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100 last:border-0" data-size="${size}">
+                        <span class="text-gray-600">${sizeLabels[size]}</span>
+                        <span class="font-semibold text-blue-900">$${price} MXN</span>
+                    </div>
+                `).join('');
+
+            priceTable.style.display = 'block';
+        }
+
+        // Actualizar highlight de precio seleccionado
+        function highlightSelectedPrice(selectedSize) {
+            const priceRows = document.querySelectorAll('#price-table-content > div');
+            priceRows.forEach(row => {
+                if (row.dataset.size === selectedSize) {
+                    row.style.backgroundColor = '#DBEAFE';
+                    row.style.fontWeight = '600';
+                } else {
+                    row.style.backgroundColor = 'transparent';
+                    row.style.fontWeight = 'normal';
+                }
+            });
+        }
+
+        function goToStep(stepNumber) {
+            // Remove active class from all steps
+            document.querySelectorAll('.booking-step').forEach(step => step.classList.remove('active'));
+
+            // Add active class to the current step
+            const currentStep = document.getElementById(`step-${stepNumber}`);
+            if (currentStep) {
+                currentStep.classList.add('active');
+            }
+
+            // Update old step indicators (if they exist)
+            document.querySelectorAll('.step-minimal').forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                if (index + 1 < stepNumber) indicator.classList.add('completed');
+                else if (index + 1 === stepNumber) indicator.classList.add('active');
+            });
+
+            // Update new Instagram Stories-style progress dots
+            document.querySelectorAll('.progress-dots .dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index + 1 < stepNumber) dot.classList.add('completed');
+                else if (index + 1 === stepNumber) dot.classList.add('active');
+            });
+
+            // Smooth scroll to booking section (not to top of page)
+            const bookingSection = document.getElementById('agendar');
+            if (bookingSection) {
+                bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Si vamos al step 3, mostrar tabla de precios
+            if (stepNumber === 3) {
+                setTimeout(() => {
+                    showPriceTable();
+                }, 100);
+            }
+        }
+
+        function resetBooking() {
+            bookingData = {
+                service: '',
+                serviceName: '',
+                price: '',
+                date: '',
+                time: '',
+                petName: '',
+                petBreed: '',
+                petSize: '',
+                petNotes: '',
+                clientName: '',
+                clientPhone: '',
+                clientStreet: '',
+                clientColonia: '',
+                clientReferences: '',
+                voucherImage: '',
+                metodoPago: 'deposito',
+                transaccionId: null
+            };
+            clearBookingData();
+            document.querySelectorAll('.service-selector').forEach(c => c.classList.remove('selected'));
+            document.getElementById('client-form').reset();
+            appointmentDate.value = '';
+            appointmentTime.innerHTML = '<option value="">Seleccionar</option>';
+            voucherUpload.value = '';
+            document.getElementById('upload-placeholder').classList.remove('hidden');
+            document.getElementById('upload-preview').classList.add('hidden');
+            uploadArea.classList.remove('has-file');
+
+            // Reset payment method selector to Depósito
+            document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('payment-option-deposito').classList.add('selected');
+            document.getElementById('codi-container').classList.add('hidden');
+            document.getElementById('deposito-container').classList.remove('hidden');
+            btnStep1.disabled = true;
+            btnStep2.disabled = true;
+            btnConfirm.disabled = true;
+            document.getElementById('btn-confirm-text').textContent = 'Confirmar Cita';
+            goToStep(1);
+        }
+
+        function showError(title, message) {
+            document.getElementById('error-title').textContent = title;
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('error-modal').classList.remove('hidden');
+        }
+
+        function loadTrackingView(appointmentId) {
+            goToView('tracking');
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]'), appointment = appointments.find(a => a.id === appointmentId);
+            if (!appointment) { showError('No encontrada', 'Verifica el enlace'); goToView('landing'); return; }
+            const clients = JSON.parse(localStorage.getItem('clients') || '{}'), client = clients[appointment.clientPhone] || {};
+            document.getElementById('tracking-client-name').textContent = appointment.clientName;
+            document.getElementById('tracking-service').textContent = appointment.serviceName;
+            const dateObj = new Date(appointment.date + 'T00:00:00');
+            document.getElementById('tracking-date').textContent = dateObj.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+            const [hour] = appointment.time.split(':'), hourNum = parseInt(hour);
+            document.getElementById('tracking-time').textContent = hourNum > 12 ? `${hourNum - 12}:00 PM` : `${hourNum}:00 AM`;
+            if (client.rewardsAvailable > 0) document.getElementById('reward-badge-tracking').classList.remove('hidden');
+            updateTrackingTimeline(appointment.status, client.currentProgress || 0);
+            if (trackingRefreshInterval) clearInterval(trackingRefreshInterval);
+            trackingRefreshInterval = setInterval(() => {
+                const updated = JSON.parse(localStorage.getItem('appointments') || '[]').find(a => a.id === appointmentId);
+                const updatedClient = JSON.parse(localStorage.getItem('clients') || '{}')[appointment.clientPhone];
+                if (updated) updateTrackingTimeline(updated.status, updatedClient?.currentProgress || 0);
+            }, 20000);
+        }
+
+        function updateTrackingTimeline(status, progress) {
+            const timeline = document.getElementById('tracking-timeline');
+            const statuses = [
+                { id: 'sent', icon: '📝', title: 'Solicitud Enviada', desc: 'Recibida' },
+                { id: 'pending-payment', icon: '⏳', title: 'Verificando Pago', desc: 'Validando comprobante' },
+                { id: 'apartada', icon: '🔒', title: 'Cita Apartada', desc: 'Confirmada' },
+                { id: 'en-route', icon: '🚗', title: 'En Camino', desc: 'Nos dirigimos' },
+                { id: 'completed', icon: '🌟', title: 'Finalizado', desc: 'Completado' }
+            ];
+            const currentIndex = statuses.findIndex(s => s.id === status);
+            timeline.innerHTML = statuses.map((s, index) => {
+                const dotClass = index < currentIndex ? 'completed' : index === currentIndex ? 'active' : '';
+                const textClass = index <= currentIndex ? 'text-gray-800' : 'text-gray-400';
+                return `<div class="timeline-minimal"><div class="timeline-dot-minimal ${dotClass}">${s.icon}</div><div><h3 class="text-lg mb-1 ${textClass}">${s.title}</h3><p class="text-sm ${textClass}">${s.desc}</p></div></div>`;
+            }).join('');
+            const loyaltySection = document.getElementById('loyalty-section-tracking');
+            if (status === 'completed' || progress > 0) {
+                loyaltySection.classList.remove('hidden');
+                document.getElementById('loyalty-progress-text').textContent = `${progress} / ${REWARDS_CONFIG.appointmentsRequired}`;
+                renderStamps(progress, 'stamps-container-tracking');
+            }
+        }
+
+        function renderStamps(filled, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            for (let i = 1; i <= REWARDS_CONFIG.appointmentsRequired; i++) {
+                const stamp = document.createElement('div');
+                stamp.className = `stamp-minimal ${i <= filled ? 'filled' : ''}`;
+                stamp.textContent = i <= filled ? '✓' : i;
+                container.appendChild(stamp);
+            }
+        }
+
+        function loadAdminView() {
+            goToView('admin');
+            document.getElementById('admin-date').textContent = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+            loadAdminAppointments();
+            loadClientsView();
+            loadAnalytics();
+            updateRouteConfigPreview(); // Inicializar preview de zonas
+            updateRouteView(); // Cargar vista de rutas por defecto
+            document.getElementById('filter-status').addEventListener('change', function() { loadAdminAppointments(this.value); });
+            document.getElementById('search-clients').addEventListener('input', function() { loadClientsView(); });
+            document.getElementById('filter-clients').addEventListener('change', function() { loadClientsView(); });
+        }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.tab-minimal').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.add('hidden'));
+            event.target.classList.add('active');
+            document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
+        }
+
+        function loadAdminAppointments(filterStatus = 'all') {
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const todayStr = new Date().toISOString().split('T')[0];
+            let filtered = appointments.filter(a => a.date === todayStr);
+            if (filterStatus !== 'all') filtered = filtered.filter(a => a.status === filterStatus);
+            document.getElementById('metric-today').textContent = filtered.length;
+            document.getElementById('metric-revenue').textContent = `$${filtered.reduce((sum, a) => sum + a.price, 0).toLocaleString()}`;
+            document.getElementById('metric-pending').textContent = filtered.filter(a => a.status === 'pending-payment').length;
+            const container = document.getElementById('appointments-container');
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="text-center py-12 text-gray-500"><p>No hay citas</p></div>';
+                return;
+            }
+            filtered.sort((a, b) => a.time.localeCompare(b.time));
+            container.innerHTML = filtered.map(apt => createAppointmentCard(apt)).join('');
+        }
+
+        function createAppointmentCard(apt) {
+            if (!apt.status) apt.status = 'pending-payment';
+            const statusColors = { 'pending-payment': 'badge-pending', 'apartada': 'badge-apartada', 'en-route': 'badge-route', 'completed': 'badge-completed' };
+            const statusLabels = { 'pending-payment': 'Pago Pendiente', 'apartada': 'Apartada', 'en-route': 'En Camino', 'completed': 'Finalizada' };
+            const isMapLink = apt.address.references.includes('maps.google') || apt.address.references.includes('goo.gl');
+            const mapsUrl = isMapLink ? apt.address.references : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(apt.address.street + ' ' + apt.address.colonia + ' Chihuahua')}`;
+            const whatsappMsg = encodeURIComponent(`Hola ${apt.clientName.split(' ')[0]}, es DoggyBus 🐕 confirmando la cita de ${apt.petName || 'tu perro'} para ${apt.serviceName}.`);
+            const whatsappUrl = `https://wa.me/52${apt.clientPhone}?text=${whatsappMsg}`;
+            return `<div class="border border-gray-200 p-6"><div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"><div class="flex-1"><div class="flex items-center gap-3 mb-3"><span class="text-2xl font-light">${apt.time}</span><span class="badge-minimal ${statusColors[apt.status]}">${statusLabels[apt.status]}</span></div><h3 class="text-lg mb-1">${apt.clientName}</h3><p class="text-sm text-gray-600">${apt.serviceName} - $${apt.price}</p><p class="text-sm text-gray-500 mt-1">${apt.address.street}, ${apt.address.colonia}</p></div><div class="flex flex-col gap-2"><select class="text-sm border px-3 py-2" onchange="updateAppointmentStatus('${apt.id}', this.value)"><option value="pending-payment" ${apt.status === 'pending-payment' ? 'selected' : ''}>Pago Pendiente</option><option value="apartada" ${apt.status === 'apartada' ? 'selected' : ''}>Apartada</option><option value="en-route" ${apt.status === 'en-route' ? 'selected' : ''}>En Camino</option><option value="completed" ${apt.status === 'completed' ? 'selected' : ''}>Finalizada</option></select><button onclick="showVoucher('${apt.id}')" class="text-sm border px-3 py-2 hover:bg-gray-50">Ver Comprobante</button><div class="flex gap-2"><a href="${mapsUrl}" target="_blank" class="flex-1 text-sm border px-3 py-2 hover:bg-gray-50 text-center">Maps</a><a href="${whatsappUrl}" target="_blank" class="flex-1 text-sm border px-3 py-2 hover:bg-gray-50 text-center">WhatsApp</a></div></div></div></div>`;
+        }
+
+        function updateAppointmentStatus(id, newStatus) {
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const index = appointments.findIndex(a => a.id === id);
+            if (index !== -1) {
+                appointments[index].status = newStatus;
+                if (newStatus === 'completed') {
+                    const phone = appointments[index].clientPhone;
+                    const clients = JSON.parse(localStorage.getItem('clients') || '{}');
+                    if (!clients[phone]) clients[phone] = {phone:phone,name:appointments[index].clientName,totalAppointments:0,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:0,totalSpent:0,tags:["Nueva"],appointments:[]};
+                    clients[phone].totalAppointments++;
+                    clients[phone].currentProgress++;
+                    clients[phone].totalSpent += appointments[index].price;
+                    if (!clients[phone].appointments.includes(id)) clients[phone].appointments.push(id);
+                    if (clients[phone].currentProgress >= REWARDS_CONFIG.appointmentsRequired) {
+                        clients[phone].rewardsAvailable++;
+                        clients[phone].currentProgress = 0;
+                    }
+                    if (clients[phone].totalAppointments >= 5 && !clients[phone].tags.includes("VIP")) clients[phone].tags.push("VIP");
+                    localStorage.setItem('clients', JSON.stringify(clients));
+                }
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                sendStatusUpdate(appointments[index]);
+                const filterStatus = document.getElementById('filter-status').value;
+                loadAdminAppointments(filterStatus);
+            }
+        }
+
+        async function sendStatusUpdate(apt) {
+            try {
+                await fetch(N8N_UPDATE_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ appointmentId: apt.id, status: apt.status, clientPhone: apt.clientPhone, clientName: apt.clientName, timestamp: new Date().toISOString() })
+                });
+            } catch (error) { console.error('Error:', error); }
+        }
+
+        function showVoucher(id) {
+            const apt = JSON.parse(localStorage.getItem('appointments') || '[]').find(a => a.id === id);
+            if (apt && apt.voucherImage) {
+                document.getElementById('voucher-modal-img').src = apt.voucherImage;
+                document.getElementById('voucher-modal').classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('close-voucher-modal').addEventListener('click', () => document.getElementById('voucher-modal').classList.add('hidden'));
+        document.getElementById('close-voucher-modal-btn').addEventListener('click', () => document.getElementById('voucher-modal').classList.add('hidden'));
+
+        function loadClientsView() {
+            const clients = JSON.parse(localStorage.getItem('clients') || '{}');
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const clientsArray = Object.values(clients);
+            const searchTerm = document.getElementById('search-clients').value.toLowerCase();
+            const filter = document.getElementById('filter-clients').value;
+
+            // Calcular perros únicos por cliente
+            const clientDogs = {};
+            let totalUniqueDogs = 0;
+
+            appointments.forEach(apt => {
+                if (!clientDogs[apt.clientPhone]) {
+                    clientDogs[apt.clientPhone] = new Map();
+                }
+                if (apt.petName) {
+                    const dogKey = `${apt.petName.toLowerCase()}_${apt.petBreed}`;
+                    if (!clientDogs[apt.clientPhone].has(dogKey)) {
+                        clientDogs[apt.clientPhone].set(dogKey, {
+                            name: apt.petName,
+                            breed: apt.petBreed || 'Desconocido',
+                            size: apt.petSize || 'mediano',
+                            lastVisit: apt.date
+                        });
+                        totalUniqueDogs++;
+                    }
+                }
+            });
+
+            let filtered = clientsArray.filter(c => c.name.toLowerCase().includes(searchTerm) || c.phone.includes(searchTerm));
+            if (filter === 'with-rewards') filtered = filtered.filter(c => c.rewardsAvailable > 0);
+            else if (filter === 'vip') filtered = filtered.filter(c => c.totalAppointments >= 5);
+            else if (filter === 'multi-dog') filtered = filtered.filter(c => clientDogs[c.phone] && clientDogs[c.phone].size > 1);
+            else if (filter === 'new') filtered = filtered.filter(c => c.totalAppointments <= 2);
+
+            document.getElementById('metric-total-clients').textContent = clientsArray.length;
+            document.getElementById('metric-total-dogs').textContent = totalUniqueDogs;
+            document.getElementById('metric-rewards-available').textContent = clientsArray.filter(c => c.rewardsAvailable > 0).length;
+            document.getElementById('metric-lifetime-value').textContent = `$${clientsArray.reduce((sum, c) => sum + (c.totalSpent || 0), 0).toLocaleString()}`;
+
+            const container = document.getElementById('clients-container');
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="text-center py-12 text-gray-500"><p>No hay clientes</p></div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(client => {
+                const dogs = clientDogs[client.phone] ? Array.from(clientDogs[client.phone].values()) : [];
+                const isVIP = client.totalAppointments >= 5;
+                const isMultiDog = dogs.length > 1;
+
+                // Crear badges
+                const badges = [];
+                if (isVIP) badges.push(`<span class="badge-minimal badge-vip">⭐ VIP</span>`);
+                if (isMultiDog) badges.push(`<span class="badge-minimal badge-apartada">🐕🐕 Multi-Perro</span>`);
+                if (client.rewardsAvailable > 0) badges.push(`<span class="badge-minimal badge-reward">🎁 ${client.rewardsAvailable} Recompensa(s)</span>`);
+
+                // Crear lista de perros
+                const dogsList = dogs.length > 0 ? dogs.map(dog => {
+                    const sizeEmoji = {
+                        'pequeno': '🐕‍🦺',
+                        'mediano': '🐕',
+                        'grande': '🦮',
+                        'gigante': '🐕🐕'
+                    }[dog.size] || '🐕';
+
+                    return `<div class="flex items-center gap-2 text-sm bg-blue-50 px-3 py-2 rounded-lg">
+                        <span class="text-lg">${sizeEmoji}</span>
+                        <div>
+                            <span class="font-semibold text-blue-900">${dog.name}</span>
+                            <span class="text-gray-600 text-xs ml-2">${dog.breed}</span>
+                        </div>
+                    </div>`;
+                }).join('') : '<p class="text-xs text-gray-400">Sin perros registrados</p>';
+
+                return `<div class="border border-gray-200 p-6 hover:shadow-md transition">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-3">
+                                <h3 class="text-lg font-semibold">${client.name}</h3>
+                                ${badges.join(' ')}
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">📞 ${client.phone}</p>
+
+                            <div class="mb-4">
+                                <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">Sus Perritos:</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                    ${dogsList}
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-6 text-sm text-gray-600 bg-gray-50 px-4 py-3 rounded-lg">
+                                <span>📅 <strong>${client.totalAppointments || 0}</strong> citas</span>
+                                <span>💰 <strong>$${(client.totalSpent || 0).toLocaleString()}</strong></span>
+                                <span>🎯 Progreso: <strong>${client.currentProgress || 0}/${REWARDS_CONFIG.appointmentsRequired}</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2 min-w-[150px]">
+                            ${client.rewardsAvailable > 0 ? `<button onclick="openRewardSelection('${client.phone}')" class="text-sm bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">🎁 Canjear</button>` : ''}
+                            <button onclick="showClientHistory('${client.phone}')" class="text-sm border border-gray-300 px-4 py-2 rounded hover:bg-gray-50">📋 Historial</button>
+                            <a href="https://wa.me/52${client.phone}" target="_blank" class="text-sm bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-center">💬 WhatsApp</a>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function openRewardSelection(phone) {
+            selectedReward = null;
+            const modal = document.getElementById('reward-selection-modal');
+            const container = document.getElementById('reward-options-container');
+            container.innerHTML = REWARDS_CONFIG.options.map(opt => `<div class="reward-minimal" data-reward-id="${opt.id}"><div class="flex items-center gap-4"><span class="text-4xl">${opt.icon}</span><div class="flex-1"><h4 class="text-lg mb-1">${opt.label}</h4><p class="text-sm text-gray-600">${opt.description}</p></div></div></div>`).join('');
+            document.querySelectorAll('.reward-minimal').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    document.querySelectorAll('.reward-minimal').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedReward = this.dataset.rewardId;
+                    document.getElementById('confirm-reward-selection').disabled = false;
+                });
+            });
+            modal.classList.remove('hidden');
+            document.getElementById('confirm-reward-selection').onclick = () => {
+                if (selectedReward) {
+                    const clients = JSON.parse(localStorage.getItem('clients') || '{}');
+                    if (clients[phone] && clients[phone].rewardsAvailable > 0) {
+                        clients[phone].rewardsAvailable--;
+                        clients[phone].rewardsRedeemed++;
+                        localStorage.setItem('clients', JSON.stringify(clients));
+                        modal.classList.add('hidden');
+                        loadClientsView();
+                        alert(`Recompensa canjeada para ${clients[phone].name}`);
+                    }
+                }
+            };
+            document.getElementById('cancel-reward-selection').onclick = () => modal.classList.add('hidden');
+        }
+
+        function showClientHistory(phone) {
+            const clients = JSON.parse(localStorage.getItem('clients') || '{}');
+            const client = clients[phone];
+            if (!client) return;
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const clientAppts = appointments.filter(a => a.clientPhone === phone).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Calcular perros únicos
+            const uniqueDogs = new Map();
+            clientAppts.forEach(apt => {
+                if (apt.petName) {
+                    const dogKey = `${apt.petName.toLowerCase()}_${apt.petBreed}`;
+                    if (!uniqueDogs.has(dogKey)) {
+                        uniqueDogs.set(dogKey, {
+                            name: apt.petName,
+                            breed: apt.petBreed,
+                            size: apt.petSize,
+                            visits: 0
+                        });
+                    }
+                    uniqueDogs.get(dogKey).visits++;
+                }
+            });
+
+            const modal = document.getElementById('client-history-modal');
+            document.getElementById('client-history-name').textContent = `${client.name}`;
+            const content = document.getElementById('client-history-content');
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <p class="text-sm text-blue-900 mb-2">🐕 Perros Diferentes</p>
+                        <p class="text-3xl font-light text-blue-900">${uniqueDogs.size}</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg">
+                        <p class="text-sm text-green-900 mb-2">📅 Total Visitas</p>
+                        <p class="text-3xl font-light text-green-900">${client.totalAppointments || 0}</p>
+                    </div>
+                    <div class="bg-purple-50 p-6 rounded-lg">
+                        <p class="text-sm text-purple-900 mb-2">💰 Total Gastado</p>
+                        <p class="text-3xl font-light text-purple-900">$${(client.totalSpent || 0).toLocaleString()}</p>
+                    </div>
+                </div>
+
+                ${uniqueDogs.size > 0 ? `
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h4 class="text-lg font-semibold mb-4">🐾 Sus Perritos</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            ${Array.from(uniqueDogs.values()).map(dog => {
+                                const sizeLabel = {
+                                    'pequeno': 'Pequeño',
+                                    'mediano': 'Mediano',
+                                    'grande': 'Grande',
+                                    'gigante': 'Gigante'
+                                }[dog.size] || dog.size;
+
+                                return `<div class="bg-white border border-blue-200 p-4 rounded-lg">
+                                    <p class="font-semibold text-blue-900">${dog.name}</p>
+                                    <p class="text-sm text-gray-600">${dog.breed} • ${sizeLabel}</p>
+                                    <p class="text-xs text-gray-500 mt-1">${dog.visits} visita${dog.visits > 1 ? 's' : ''}</p>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+
+                <h4 class="text-xl mb-6 flex items-center gap-2">
+                    <span>📋 Historial de Citas</span>
+                </h4>
+                <div class="space-y-3">
+                    ${clientAppts.length > 0 ? clientAppts.map(apt => {
+                        const statusConfig = {
+                            'completed': { class: 'badge-completed', label: '✓ Completada' },
+                            'apartada': { class: 'badge-apartada', label: '📌 Apartada' },
+                            'en-route': { class: 'badge-route', label: '🚌 En Camino' },
+                            'pending-payment': { class: 'badge-pending', label: '⏳ Pendiente' }
+                        };
+                        const status = statusConfig[apt.status] || statusConfig['pending-payment'];
+
+                        return `<div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex-1">
+                                    <p class="font-medium text-lg">${apt.serviceName}</p>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        ${new Date(apt.date).toLocaleDateString('es-MX', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}
+                                        • ${apt.time}
+                                    </p>
+                                </div>
+                                <span class="badge-minimal ${status.class}">${status.label}</span>
+                            </div>
+                            ${apt.petName ? `
+                                <div class="bg-blue-50 px-3 py-2 rounded mt-2">
+                                    <p class="text-sm">
+                                        <span class="font-semibold text-blue-900">🐕 ${apt.petName}</span>
+                                        <span class="text-gray-600 text-xs ml-2">${apt.petBreed || 'N/A'} • ${apt.petSize || 'N/A'}</span>
+                                    </p>
+                                    ${apt.petNotes ? `<p class="text-xs text-gray-600 mt-1">💬 ${apt.petNotes}</p>` : ''}
+                                </div>
+                            ` : ''}
+                            <p class="text-sm text-gray-600 mt-3 font-semibold">💰 $${apt.price}</p>
+                        </div>`;
+                    }).join('') : '<p class="text-gray-500 text-center py-8">Sin citas registradas</p>'}
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        document.getElementById('close-client-history').addEventListener('click', () => document.getElementById('client-history-modal').classList.add('hidden'));
+
+        function loadAnalytics() {
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const clients = Object.values(JSON.parse(localStorage.getItem('clients') || '{}'));
+            const completed = appointments.filter(a => a.status === 'completed');
+
+            // 1. INGRESOS DEL MES
+            const monthRevenue = completed.reduce((sum, a) => sum + a.price, 0);
+            document.getElementById('analytics-month-revenue').textContent = `$${monthRevenue.toLocaleString()}`;
+
+            // 2. TICKET PROMEDIO
+            const avgTicket = completed.length > 0 ? monthRevenue / completed.length : 0;
+            document.getElementById('analytics-avg-ticket').textContent = `$${Math.round(avgTicket).toLocaleString()}`;
+
+            // 3. TASA DE RETORNO (clientes que regresan)
+            const clientsWithMultipleVisits = clients.filter(c => (c.totalAppointments || 0) > 1).length;
+            const returnRate = clients.length > 0 ? (clientsWithMultipleVisits / clients.length) * 100 : 0;
+            document.getElementById('analytics-return-rate').textContent = `${Math.round(returnRate)}%`;
+
+            // 4. HORA PICO
+            const hourCounts = {};
+            completed.forEach(apt => {
+                const hour = apt.time.split(':')[0];
+                hourCounts[hour] = (hourCounts[hour] || 0) + 1;
+            });
+            const peakHour = Object.entries(hourCounts).sort((a, b) => b[1] - a[1])[0];
+            if (peakHour) {
+                const hourNum = parseInt(peakHour[0]);
+                document.getElementById('analytics-peak-hour').textContent = hourNum > 12 ? `${hourNum - 12}:00 PM` : `${hourNum}:00 AM`;
+            } else {
+                document.getElementById('analytics-peak-hour').textContent = '-';
+            }
+
+            // 5. DISTRIBUCIÓN DE SERVICIOS
+            const serviceCounts = {};
+            completed.forEach(apt => {
+                const serviceName = apt.serviceName || apt.service;
+                serviceCounts[serviceName] = (serviceCounts[serviceName] || 0) + 1;
+            });
+            const sortedServices = Object.entries(serviceCounts).sort((a, b) => b[1] - a[1]);
+
+            document.getElementById('analytics-service-breakdown').innerHTML = sortedServices.length > 0
+                ? sortedServices.map(([name, count]) => {
+                    const percentage = (count / completed.length) * 100;
+                    return `<div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">${name}</span>
+                            <span class="text-sm text-gray-600">${count} (${Math.round(percentage)}%)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-blue-600 h-3 rounded-full transition-all" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>`;
+                }).join('')
+                : '<p class="text-gray-500 text-center py-8">Sin servicios completados</p>';
+
+            // 6. TOP RAZAS ATENDIDAS
+            const breedCounts = {};
+            completed.forEach(apt => {
+                if (apt.petBreed) {
+                    breedCounts[apt.petBreed] = (breedCounts[apt.petBreed] || 0) + 1;
+                }
+            });
+            const topBreeds = Object.entries(breedCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+            document.getElementById('analytics-top-breeds').innerHTML = topBreeds.length > 0
+                ? topBreeds.map(([breed, count]) => `
+                    <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">🐕</span>
+                            <div>
+                                <p class="font-medium capitalize">${breed}</p>
+                                <p class="text-sm text-gray-500">${count} visita${count > 1 ? 's' : ''}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-lg font-bold text-blue-600">${count}</p>
+                        </div>
+                    </div>
+                `).join('')
+                : '<p class="text-gray-500 text-center py-8">Sin datos de razas</p>';
+
+            // 7. DISTRIBUCIÓN POR ZONA
+            const zoneCounts = {};
+            completed.forEach(apt => {
+                if (apt.address?.colonia) {
+                    const zone = getZoneForColonia(apt.address.colonia);
+                    zoneCounts[zone] = (zoneCounts[zone] || 0) + 1;
+                }
+            });
+            const zoneLabels = {
+                'norte': '📍 Zona Norte',
+                'sur': '📍 Zona Sur',
+                'centro': '📍 Zona Centro'
+            };
+            const sortedZones = Object.entries(zoneCounts).sort((a, b) => b[1] - a[1]);
+
+            document.getElementById('analytics-zone-distribution').innerHTML = sortedZones.length > 0
+                ? sortedZones.map(([zone, count]) => {
+                    const percentage = (count / completed.length) * 100;
+                    return `<div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">${zoneLabels[zone] || zone}</span>
+                            <span class="text-sm text-gray-600">${count} citas (${Math.round(percentage)}%)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full transition-all" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>`;
+                }).join('')
+                : '<p class="text-gray-500 text-center py-8">Sin datos de zonas</p>';
+
+            // 8. TOP CLIENTES VIP (rediseñado)
+            const topClients = clients.sort((a, b) => (b.totalSpent || 0) - (a.totalSpent || 0)).slice(0, 5);
+            document.getElementById('analytics-top-clients').innerHTML = topClients.length > 0
+                ? topClients.map((c, index) => {
+                    const medal = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'][index];
+                    return `<div class="flex justify-between items-center py-3 border-b border-gray-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">${medal}</span>
+                            <div>
+                                <p class="font-medium">${c.name}</p>
+                                <p class="text-sm text-gray-500">${c.totalAppointments || 0} cita${(c.totalAppointments || 0) > 1 ? 's' : ''}</p>
+                            </div>
+                        </div>
+                        <p class="text-lg font-bold text-green-600">$${(c.totalSpent || 0).toLocaleString()}</p>
+                    </div>`;
+                }).join('')
+                : '<p class="text-gray-500 text-center py-8">Sin clientes</p>';
+        }
+
+        // ============================================
+        // SISTEMA DE RUTAS Y ZONAS GEOGRÁFICAS
+        // ============================================
+
+        // Configuración de zonas (editable y persistente)
+        let ZONE_CONFIG = JSON.parse(localStorage.getItem('doggybus_zones') || JSON.stringify({
+            norte: {
+                name: "Zona Norte",
+                colonias: ["San Felipe", "Quintas del Sol", "Vista Hermosa", "Rincones de San Marcos"]
+            },
+            sur: {
+                name: "Zona Sur",
+                colonias: ["Panamericana", "Campestre", "Las Haciendas", "Nombre de Dios"]
+            },
+            centro: {
+                name: "Zona Centro",
+                colonias: ["Centro", "Zona Dorada", "Colonia Obrera", "Santa Rita"]
+            }
+        }));
+
+        function saveZones() {
+            localStorage.setItem('doggybus_zones', JSON.stringify(ZONE_CONFIG));
+        }
+
+        function getZoneForColonia(colonia) {
+            for (const [zoneId, zoneData] of Object.entries(ZONE_CONFIG)) {
+                if (zoneData.colonias.some(c => colonia.toLowerCase().includes(c.toLowerCase()))) {
+                    return zoneId;
+                }
+            }
+            return 'centro'; // Default fallback
+        }
+
+        /**
+         * Verifica si un horario está disponible considerando:
+         * - Duración del servicio actual
+         * - Citas existentes en el día
+         * - Tiempo de viaje entre zonas
+         */
+        function isTimeSlotAvailable(date, time, serviceId, clientColonia) {
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+
+            // Filtrar citas del mismo día
+            const dayAppointments = appointments.filter(a => a.date === date && a.status !== 'cancelled');
+
+            console.log(`🔍 Checking ${time} on ${date}:`);
+            console.log(`   📊 Total appointments in system: ${appointments.length}`);
+            console.log(`   📅 Appointments on ${date}: ${dayAppointments.length}`);
+            console.log(`   🐕 Service: ${serviceId}, Colonia: ${clientColonia}`);
+
+            if (dayAppointments.length === 0) {
+                console.log(`   ✅ No appointments this day - all slots available`);
+                return { available: true };
+            }
+
+            // Calcular inicio y fin de la nueva cita
+            const newStartMinutes = timeToMinutes(time);
+            const serviceDuration = SERVICE_DURATION[serviceId] || 60;
+            const newEndMinutes = newStartMinutes + serviceDuration;
+            const newZone = getZoneForColonia(clientColonia || '');
+
+            console.log(`📍 New appointment: ${time} (${newStartMinutes}-${newEndMinutes} min), Zone: ${newZone}, Duration: ${serviceDuration}min`);
+
+            // Verificar conflictos con cada cita existente
+            for (const apt of dayAppointments) {
+                const existingStartMinutes = timeToMinutes(apt.time);
+                const existingDuration = SERVICE_DURATION[apt.service] || 60;
+                const existingEndMinutes = existingStartMinutes + existingDuration;
+                const existingZone = getZoneForColonia(apt.address?.colonia || '');
+
+                // Determinar tiempo de viaje necesario
+                const travelTime = (newZone === existingZone) ? TRAVEL_TIME.sameZone : TRAVEL_TIME.differentZone;
+
+                console.log(`⚠️ Existing: ${apt.time} (${existingStartMinutes}-${existingEndMinutes}), Zone: ${existingZone}, Travel: ${travelTime}min`);
+
+                // Lógica simplificada: verificar si hay overlap considerando tiempos de viaje
+                // Nueva cita debe empezar DESPUÉS de: existing end + travel time
+                const earliestStart = existingEndMinutes + travelTime;
+
+                // Nueva cita debe terminar ANTES de: existing start - travel time
+                const latestEnd = existingStartMinutes - travelTime;
+
+                // Conflicto si nueva cita empieza muy pronto después de existente
+                if (newStartMinutes < earliestStart && newEndMinutes > existingStartMinutes) {
+                    console.log(`❌ CONFLICT: New starts too soon (${newStartMinutes} < ${earliestStart})`);
+                    return {
+                        available: false,
+                        reason: `Ocupado hasta ${minutesToTime(earliestStart)}`
+                    };
+                }
+
+                // Conflicto si nueva cita termina muy cerca de la siguiente
+                if (newEndMinutes > latestEnd && newStartMinutes < existingEndMinutes) {
+                    console.log(`❌ CONFLICT: New ends too late (${newEndMinutes} > ${latestEnd})`);
+                    return {
+                        available: false,
+                        reason: `Ocupado (siguiente cita ${apt.time})`
+                    };
+                }
+            }
+
+            console.log(`✅ ${time} AVAILABLE`);
+            return { available: true };
+        }
+
+        // Convertir tiempo HH:MM a minutos desde medianoche
+        function timeToMinutes(time) {
+            const [hours, minutes] = time.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        // Convertir minutos a formato HH:MM
+        function minutesToTime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
+            return `${displayHours}:${mins.toString().padStart(2, '0')} ${period}`;
+        }
+
+        function updateRouteView() {
+            const selectedZone = document.getElementById('route-zone-selector').value;
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const todayStr = new Date().toISOString().split('T')[0];
+
+            // Filtrar citas de hoy por zona
+            const todayAppointments = appointments.filter(a => {
+                if (a.date !== todayStr) return false;
+                const aptZone = getZoneForColonia(a.address?.colonia || '');
+                return aptZone === selectedZone;
+            });
+
+            // Calcular métricas
+            document.getElementById('route-services-count').textContent = todayAppointments.length;
+            const totalIncome = todayAppointments.reduce((sum, apt) => sum + (apt.price || 0), 0);
+            document.getElementById('route-income-estimate').textContent = `$${totalIncome.toLocaleString()}`;
+
+            // Renderizar tabla
+            const tableBody = document.getElementById('route-table-body');
+            const emptyState = document.getElementById('route-empty-state');
+
+            if (todayAppointments.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            // Ordenar por hora
+            todayAppointments.sort((a, b) => a.time.localeCompare(b.time));
+
+            tableBody.innerHTML = todayAppointments.map(apt => {
+                const statusBadge = {
+                    'completed': '<span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">✅ TERMINADO</span>',
+                    'en-route': '<span class="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full">🚗 EN RUTA</span>',
+                    'apartada': '<span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">⏳ PENDIENTE</span>',
+                    'pending-payment': '<span class="px-3 py-1 bg-gray-100 text-gray-800 text-xs font-semibold rounded-full">⏳ PENDIENTE</span>'
+                }[apt.status] || '<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">⏳ PENDIENTE</span>';
+
+                const petSize = apt.petSize || 'N/A';
+                const sizeLabels = {
+                    pequeno: 'Pequeño',
+                    mediano: 'Mediano',
+                    grande: 'Grande',
+                    gigante: 'Gigante'
+                };
+
+                return `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-3 font-semibold">${apt.time}</td>
+                        <td class="p-3">
+                            <div class="font-medium">${apt.petName || 'N/A'} (${apt.petBreed || 'N/A'})</div>
+                            <div class="text-sm text-gray-500">${apt.clientName}</div>
+                        </td>
+                        <td class="p-3">
+                            <div class="font-medium">${apt.serviceName}</div>
+                            <div class="text-sm text-gray-500">${sizeLabels[petSize] || petSize} • $${apt.price}</div>
+                        </td>
+                        <td class="p-3">
+                            <div class="font-medium">${apt.address?.colonia || 'N/A'}</div>
+                            <div class="text-sm text-gray-500">${apt.address?.street || ''}</div>
+                        </td>
+                        <td class="p-3">${statusBadge}</td>
+                        <td class="p-3">
+                            <button onclick="updateAppointmentStatus('${apt.id}', 'en-route')" class="text-xs bg-orange-500 text-white px-2 py-1 rounded mr-1">
+                                En Ruta
+                            </button>
+                            <button onclick="updateAppointmentStatus('${apt.id}', 'completed')" class="text-xs bg-green-500 text-white px-2 py-1 rounded">
+                                Completar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateAppointmentStatus(appointmentId, newStatus) {
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const index = appointments.findIndex(a => a.id === appointmentId);
+
+            if (index !== -1) {
+                appointments[index].status = newStatus;
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                updateRouteView();
+
+                // Actualizar otras vistas si están abiertas
+                if (document.getElementById('admin-tab-daily') && !document.getElementById('admin-tab-daily').classList.contains('hidden')) {
+                    loadAdminAppointments();
+                }
+            }
+        }
+
+        function optimizeRoute() {
+            alert('🗺️ Optimización de ruta:\n\nPróximamente se integrará con Google Maps API para optimizar el orden de las visitas según la ubicación geográfica.\n\nPor ahora, las visitas están ordenadas por hora de cita.');
+        }
+
+        function toggleZoneConfig() {
+            const panel = document.getElementById('zone-config-panel');
+            const preview = document.getElementById('zone-config-preview');
+
+            if (panel.classList.contains('hidden')) {
+                // Mostrar panel de edición
+                panel.classList.remove('hidden');
+                preview.classList.add('hidden');
+                renderZoneConfigEditor();
+            } else {
+                // Ocultar panel
+                panel.classList.add('hidden');
+                preview.classList.remove('hidden');
+            }
+        }
+
+        function renderZoneConfigEditor() {
+            const list = document.getElementById('zone-config-list');
+            list.innerHTML = Object.entries(ZONE_CONFIG).map(([zoneId, zoneData]) => `
+                <div class="bg-white p-4 rounded border">
+                    <label class="block text-sm font-semibold mb-2">${zoneData.name}</label>
+                    <textarea
+                        id="zone-${zoneId}-colonias"
+                        class="w-full border p-2 text-sm rounded"
+                        rows="3"
+                        placeholder="Escribe las colonias separadas por comas"
+                    >${zoneData.colonias.join(', ')}</textarea>
+                    <p class="text-xs text-gray-500 mt-1">Separa cada colonia con una coma</p>
+                </div>
+            `).join('');
+        }
+
+        function saveZoneConfig() {
+            // Leer los valores de los textareas
+            Object.keys(ZONE_CONFIG).forEach(zoneId => {
+                const textarea = document.getElementById(`zone-${zoneId}-colonias`);
+                if (textarea) {
+                    const colonias = textarea.value
+                        .split(',')
+                        .map(c => c.trim())
+                        .filter(c => c.length > 0);
+                    ZONE_CONFIG[zoneId].colonias = colonias;
+                }
+            });
+
+            // Guardar en localStorage
+            saveZones();
+
+            // Cerrar panel y actualizar vista
+            toggleZoneConfig();
+            updateRouteConfigPreview();
+            updateRouteView();
+
+            alert('✅ Configuración de zonas guardada correctamente');
+        }
+
+        function updateRouteConfigPreview() {
+            const preview = document.getElementById('zone-config-preview');
+            preview.innerHTML = Object.entries(ZONE_CONFIG).map(([zoneId, zoneData]) => `
+                <div>
+                    <strong>${zoneData.name}:</strong> ${zoneData.colonias.join(', ')}
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // FIN SISTEMA DE RUTAS
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                renderServices();
+            } catch (e) {
+                console.error('Error rendering services:', e);
+            }
+
+            try {
+                loadBookingData();
+            } catch (e) {
+                console.error('Error loading booking data:', e);
+            }
+
+            try {
+                initRouter();
+            } catch (e) {
+                console.error('Error initializing router:', e);
+            }
+        });
+    </script>
+</body>
+</html>
