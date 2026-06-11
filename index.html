@@ -1522,12 +1522,43 @@
 
     <!-- MODALS -->
     <div id="success-modal" class="modal-minimal fixed inset-0 flex items-center justify-center hidden z-50">
-        <div class="bg-white p-16 max-w-md mx-4 text-center">
-            <p class="text-6xl mb-8">✓</p>
-            <h3 class="text-3xl mb-6">Enviado</h3>
-            <p class="text-gray-600 mb-4">Recibirás confirmación por WhatsApp</p>
+        <div class="bg-white p-12 max-w-lg mx-4 text-center">
+            <p class="text-6xl mb-6">✓</p>
+            <h3 class="text-3xl mb-4">¡Cita Enviada!</h3>
+            <p class="text-gray-600 mb-6">Recibirás confirmación por WhatsApp</p>
             <p id="confirmation-id" class="text-sm text-blue-600 font-mono mb-8"></p>
-            <button id="close-modal" class="btn-minimal">Cerrar</button>
+
+            <!-- Tracking Link Section -->
+            <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <p class="text-sm text-gray-600 mb-3">📍 Rastrea tu cita:</p>
+                <div class="flex gap-2 mb-3">
+                    <input
+                        type="text"
+                        id="tracking-link-input"
+                        class="flex-1 px-3 py-2 border border-gray-300 rounded text-sm font-mono text-gray-700"
+                        readonly
+                    >
+                    <button
+                        id="copy-tracking-link"
+                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm whitespace-nowrap"
+                    >
+                        📋 Copiar
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500">Guarda este enlace para ver el estado de tu cita</p>
+            </div>
+
+            <div class="flex gap-3">
+                <button id="close-modal" class="flex-1 btn-minimal">Cerrar</button>
+                <a
+                    id="share-whatsapp-link"
+                    href="#"
+                    target="_blank"
+                    class="flex-1 bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600 transition text-center"
+                >
+                    💬 Enviarme por WhatsApp
+                </a>
+            </div>
         </div>
     </div>
 
@@ -1674,40 +1705,16 @@
     </script>
     <script>
         let allServices = [...SERVICES_CONFIG.basic, ...SERVICES_CONFIG.plus, ...SERVICES_CONFIG.luxury];
-        const MOCK_CLIENTS = {
-            "6141234567":{phone:"6141234567",name:"María García López",firstVisit:"2026-05-15",totalAppointments:2,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:2,totalSpent:1150,notes:"Tiene 2 perros: Max y Bella",tags:["Multi-Perro"],alerts:[],appointments:["APT001","APT008"]},
-            "6149876543":{phone:"6149876543",name:"Ana Martínez",firstVisit:"2026-06-01",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:1650,notes:"Cliente frecuente con 2 perros",tags:["Multi-Perro"],alerts:[],appointments:["APT002","APT012"]},
-            "6145551234":{phone:"6145551234",name:"Sofía Hernández",firstVisit:"2026-05-20",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:2000,notes:"Tiene 2 pastor alemán gigantes",tags:["Multi-Perro"],alerts:[],appointments:["APT003","APT015"]},
-            "6147778888":{phone:"6147778888",name:"Carlos Ruiz",firstVisit:"2026-05-01",totalAppointments:6,rewardsAvailable:1,rewardsRedeemed:0,currentProgress:1,totalSpent:2100,notes:"Cliente VIP, 2 chihuahuas",tags:["VIP","Multi-Perro"],alerts:[],appointments:["APT004","APT011"]},
-            "6143334444":{phone:"6143334444",name:"Juan Pérez",firstVisit:"2026-05-10",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:1350,notes:"2 labradores grandes",tags:["Multi-Perro"],alerts:[],appointments:["APT005","APT013"]},
-            "6145556666":{phone:"6145556666",name:"Laura Sánchez",firstVisit:"2026-05-25",totalAppointments:3,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:3,totalSpent:1450,notes:"2 poodles, prefiere cortes especiales",tags:["Multi-Perro"],alerts:[],appointments:["APT006","APT014"]},
-            "6142223333":{phone:"6142223333",name:"Roberto Díaz",firstVisit:"2026-06-08",totalAppointments:1,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:1,totalSpent:350,notes:"Bulldog con problemas respiratorios",tags:["Nuevo"],alerts:[],appointments:["APT007"]},
-            "6147771111":{phone:"6147771111",name:"Patricia Gómez",firstVisit:"2026-06-07",totalAppointments:1,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:1,totalSpent:300,notes:"Yorkshire pequeño",tags:["Nuevo"],alerts:[],appointments:["APT009"]},
-            "6148889999":{phone:"6148889999",name:"Miguel Torres",firstVisit:"2026-06-07",totalAppointments:1,rewardsAvailable:0,rewardsRedeemed:0,currentProgress:1,totalSpent:700,notes:"Husky con mucho pelo",tags:["Nuevo"],alerts:[],appointments:["APT010"]}
-        };
-        const MOCK_APPOINTMENTS = [
-            // Citas de hoy (2026-06-10)
-            {id:"APT001",date:"2026-06-10",time:"09:00",petName:"Max",petBreed:"labrador",petSize:"grande",petNotes:"Muy juguetón, le gusta el agua",clientName:"María García López",clientPhone:"6141234567",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:450,address:{street:"Av. Universidad #1234",colonia:"San Felipe",references:"Casa beige con portón negro"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT002",date:"2026-06-10",time:"10:30",petName:"Luna",petBreed:"schnauzer",petSize:"mediano",petNotes:"Nerviosa con el secador",clientName:"Ana Martínez",clientPhone:"6149876543",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:550,address:{street:"Calle Morelos #567",colonia:"Centro",references:"Edificio de departamentos, #302"},status:"en-route",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT003",date:"2026-06-10",time:"12:00",petName:"Rocky",petBreed:"pastor-aleman",petSize:"gigante",petNotes:"Agresivo con extraños, usar bozal",clientName:"Sofía Hernández",clientPhone:"6145551234",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:550,address:{street:"Blvd. Teófilo #890",colonia:"Quintas del Sol",references:"Edificio azul, tocar timbre 2 veces"},status:"apartada",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT004",date:"2026-06-10",time:"14:00",petName:"Kiwi",petBreed:"chihuahua",petSize:"pequeno",petNotes:"Tiembla mucho, es normal",clientName:"Carlos Ruiz",clientPhone:"6147778888",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:450,address:{street:"Calle Lira #123",colonia:"Panamericana",references:"Casa verde con jardín"},status:"pending-payment",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-
-            // Citas completadas de días anteriores (para analytics)
-            {id:"APT005",date:"2026-06-09",time:"10:00",petName:"Firulais",petBreed:"golden-retriever",petSize:"grande",petNotes:"",clientName:"Juan Pérez",clientPhone:"6143334444",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:450,address:{street:"Av. Las Torres #234",colonia:"Vista Hermosa",references:"Casa esquina"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT006",date:"2026-06-09",time:"11:30",petName:"Coco",petBreed:"poodle",petSize:"mediano",petNotes:"Necesita corte especial raza",clientName:"Laura Sánchez",clientPhone:"6145556666",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:550,address:{street:"Calle Juárez #789",colonia:"Zona Dorada",references:"Local comercial al lado"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT007",date:"2026-06-08",time:"09:30",petName:"Zeus",petBreed:"bulldog",petSize:"mediano",petNotes:"Problemas respiratorios, cuidado",clientName:"Roberto Díaz",clientPhone:"6142223333",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:350,address:{street:"Av. Tecnológico #456",colonia:"Campestre",references:"Casa dos pisos amarilla"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT008",date:"2026-06-08",time:"14:00",petName:"Bella",petBreed:"labrador",petSize:"grande",petNotes:"Segunda visita, muy tranquila",clientName:"María García López",clientPhone:"6141234567",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:700,address:{street:"Av. Universidad #1234",colonia:"San Felipe",references:"Casa beige con portón negro"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT009",date:"2026-06-07",time:"10:00",petName:"Toby",petBreed:"yorkshire",petSize:"pequeno",petNotes:"",clientName:"Patricia Gómez",clientPhone:"6147771111",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:300,address:{street:"Calle Independencia #321",colonia:"Colonia Obrera",references:"Casa naranja"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT010",date:"2026-06-07",time:"11:00",petName:"Simba",petBreed:"husky",petSize:"grande",petNotes:"Tiene mucho pelo, tarda más",clientName:"Miguel Torres",clientPhone:"6148889999",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:700,address:{street:"Av. Mirador #678",colonia:"Las Haciendas",references:"Reja blanca"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT011",date:"2026-06-06",time:"09:00",petName:"Lola",petBreed:"chihuahua",petSize:"pequeno",petNotes:"Cliente frecuente, 5ta visita",clientName:"Carlos Ruiz",clientPhone:"6147778888",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:300,address:{street:"Calle Lira #123",colonia:"Panamericana",references:"Casa verde con jardín"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT012",date:"2026-06-06",time:"13:00",petName:"Chispas",petBreed:"schnauzer",petSize:"mediano",petNotes:"Le gusta mucho el corte",clientName:"Ana Martínez",clientPhone:"6149876543",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:550,address:{street:"Calle Morelos #567",colonia:"Centro",references:"Edificio de departamentos, #302"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT013",date:"2026-06-05",time:"10:30",petName:"Manchas",petBreed:"labrador",petSize:"grande",petNotes:"",clientName:"Juan Pérez",clientPhone:"6143334444",service:"bano-estandar",serviceName:"🛁 Baño Estándar",price:450,address:{street:"Av. Las Torres #234",colonia:"Vista Hermosa",references:"Casa esquina"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT014",date:"2026-06-05",time:"15:00",petName:"Princesa",petBreed:"poodle",petSize:"pequeno",petNotes:"Corte estilo cachorro",clientName:"Laura Sánchez",clientPhone:"6145556666",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:450,address:{street:"Calle Juárez #789",colonia:"Zona Dorada",references:"Local comercial al lado"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="},
-            {id:"APT015",date:"2026-06-04",time:"11:00",petName:"Thor",petBreed:"pastor-aleman",petSize:"gigante",petNotes:"Segunda visita, ya está más tranquilo",clientName:"Sofía Hernández",clientPhone:"6145551234",service:"estetica-completa",serviceName:"✂️ Estética Completa",price:900,address:{street:"Blvd. Teófilo #890",colonia:"Quintas del Sol",references:"Edificio azul, tocar timbre 2 veces"},status:"completed",voucherImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="}
-        ];
-
-        if (!localStorage.getItem('appointments')) localStorage.setItem('appointments', JSON.stringify(MOCK_APPOINTMENTS));
-        if (!localStorage.getItem('clients')) localStorage.setItem('clients', JSON.stringify(MOCK_CLIENTS));
+        // ============================================
+        // DATOS DE PRUEBA ELIMINADOS PARA PRODUCCIÓN
+        // ============================================
+        // Mock data removido - ahora todo viene de PostgreSQL vía N8N
+        // Las citas se guardan automáticamente en localStorage cuando
+        // el webhook de N8N responde exitosamente
+        
+        // Arrancar el MVP con la memoria local vacía para producción limpia
+        if (!localStorage.getItem('appointments')) localStorage.setItem('appointments', JSON.stringify([]));
+        if (!localStorage.getItem('clients')) localStorage.setItem('clients', JSON.stringify({}));
 
         let bookingData = {
             service: '',
@@ -2318,6 +2325,8 @@
             btnConfirm.disabled = true;
         });
 
+        let resetTimeout = null; // Track timeout for cleanup
+
         btnConfirm.addEventListener('click', async function(e) {
             e.preventDefault();
 
@@ -2414,17 +2423,26 @@
                     source: databaseId ? 'PostgreSQL' : 'Local (temp)'
                 });
 
-                // Show success modal con ID de confirmación
+                // Show success modal con ID de confirmación y tracking link
                 const confirmationIdElement = document.getElementById('confirmation-id');
                 if (databaseId) {
                     confirmationIdElement.textContent = `ID: ${databaseId}`;
                 } else {
                     confirmationIdElement.textContent = '';
                 }
+
+                // Generate tracking URL
+                const trackingUrl = `${window.location.origin}${window.location.pathname}?view=track&appointmentId=${appointmentId}`;
+                document.getElementById('tracking-link-input').value = trackingUrl;
+
+                // Setup WhatsApp share link
+                const whatsappMessage = `¡Hola! Aquí está el enlace para rastrear tu cita en DoggyBus:\n\n${trackingUrl}\n\nPodrás ver el estado de tu servicio en tiempo real.`;
+                document.getElementById('share-whatsapp-link').href = `https://wa.me/52${bookingData.clientPhone}?text=${encodeURIComponent(whatsappMessage)}`;
+
                 document.getElementById('success-modal').classList.remove('hidden');
 
-                // Reset booking after short delay
-                setTimeout(() => {
+                // Reset booking after short delay (if user doesn't click close first)
+                resetTimeout = setTimeout(() => {
                     resetBooking();
                     goToStep(1);
                 }, 2000);
@@ -2437,7 +2455,47 @@
             }
         });
 
-        document.getElementById('close-modal').addEventListener('click', () => document.getElementById('success-modal').classList.add('hidden'));
+        document.getElementById('close-modal').addEventListener('click', () => {
+            // Clear the auto-reset timeout if user clicks manually
+            if (resetTimeout) {
+                clearTimeout(resetTimeout);
+                resetTimeout = null;
+            }
+
+            // Hide modal and reset to start
+            document.getElementById('success-modal').classList.add('hidden');
+            resetBooking();
+            goToStep(1);
+        });
+
+        // Copy tracking link button
+        document.getElementById('copy-tracking-link').addEventListener('click', async function() {
+            const input = document.getElementById('tracking-link-input');
+            const btn = this;
+            const originalText = btn.textContent;
+
+            try {
+                await navigator.clipboard.writeText(input.value);
+                btn.textContent = '✓ Copiado';
+                btn.classList.add('bg-green-600');
+                btn.classList.remove('bg-blue-600');
+
+                // Haptic feedback
+                if (navigator.vibrate) navigator.vibrate(50);
+
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('bg-green-600');
+                    btn.classList.add('bg-blue-600');
+                }, 2000);
+            } catch (err) {
+                // Fallback for older browsers
+                input.select();
+                document.execCommand('copy');
+                btn.textContent = '✓ Copiado';
+            }
+        });
+
         document.getElementById('close-error-modal').addEventListener('click', () => document.getElementById('error-modal').classList.add('hidden'));
 
         // Mostrar tabla de precios según el servicio seleccionado
@@ -2576,22 +2634,41 @@
 
         function loadTrackingView(appointmentId) {
             goToView('tracking');
-            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]'), appointment = appointments.find(a => a.id === appointmentId);
-            if (!appointment) { showError('No encontrada', 'Verifica el enlace'); goToView('landing'); return; }
-            const clients = JSON.parse(localStorage.getItem('clients') || '{}'), client = clients[appointment.clientPhone] || {};
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const appointment = appointments.find(a => a.id === appointmentId);
+
+            if (!appointment) {
+                showError('No encontrada', 'Verifica el enlace');
+                goToView('landing');
+                return;
+            }
+
+            // Calculate client metrics dynamically from appointments
+            const clientAppointments = appointments.filter(a => a.clientPhone === appointment.clientPhone && a.status === 'completed');
+            const totalCompleted = clientAppointments.length;
+            const rewardsAvailable = Math.floor(totalCompleted / REWARDS_CONFIG.appointmentsRequired);
+            const currentProgress = totalCompleted % REWARDS_CONFIG.appointmentsRequired;
+
+            // Display appointment details
             document.getElementById('tracking-client-name').textContent = appointment.clientName;
             document.getElementById('tracking-service').textContent = appointment.serviceName;
             const dateObj = new Date(appointment.date + 'T00:00:00');
             document.getElementById('tracking-date').textContent = dateObj.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
             const [hour] = appointment.time.split(':'), hourNum = parseInt(hour);
             document.getElementById('tracking-time').textContent = hourNum > 12 ? `${hourNum - 12}:00 PM` : `${hourNum}:00 AM`;
-            if (client.rewardsAvailable > 0) document.getElementById('reward-badge-tracking').classList.remove('hidden');
-            updateTrackingTimeline(appointment.status, client.currentProgress || 0);
+
+            if (rewardsAvailable > 0) document.getElementById('reward-badge-tracking').classList.remove('hidden');
+            updateTrackingTimeline(appointment.status, currentProgress);
+
+            // Auto-refresh tracking status every 20 seconds
             if (trackingRefreshInterval) clearInterval(trackingRefreshInterval);
             trackingRefreshInterval = setInterval(() => {
                 const updated = JSON.parse(localStorage.getItem('appointments') || '[]').find(a => a.id === appointmentId);
-                const updatedClient = JSON.parse(localStorage.getItem('clients') || '{}')[appointment.clientPhone];
-                if (updated) updateTrackingTimeline(updated.status, updatedClient?.currentProgress || 0);
+                if (updated) {
+                    const updatedClientApts = JSON.parse(localStorage.getItem('appointments') || '[]').filter(a => a.clientPhone === updated.clientPhone && a.status === 'completed');
+                    const updatedProgress = updatedClientApts.length % REWARDS_CONFIG.appointmentsRequired;
+                    updateTrackingTimeline(updated.status, updatedProgress);
+                }
             }, 20000);
         }
 
@@ -2726,24 +2803,47 @@
         document.getElementById('close-voucher-modal-btn').addEventListener('click', () => document.getElementById('voucher-modal').classList.add('hidden'));
 
         function loadClientsView() {
-            const clients = JSON.parse(localStorage.getItem('clients') || '{}');
+            // ============================================
+            // RECONSTRUCCIÓN DINÁMICA DEL CATÁLOGO DE CLIENTES
+            // ============================================
+            // Leemos solo las citas reales desde localStorage
             const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-            const clientsArray = Object.values(clients);
             const searchTerm = document.getElementById('search-clients').value.toLowerCase();
             const filter = document.getElementById('filter-clients').value;
 
-            // Calcular perros únicos por cliente
+            // Reconstruir el objeto de clientes desde cero basado en las citas
+            const clients = {};
             const clientDogs = {};
             let totalUniqueDogs = 0;
 
             appointments.forEach(apt => {
-                if (!clientDogs[apt.clientPhone]) {
-                    clientDogs[apt.clientPhone] = new Map();
+                const phone = apt.clientPhone;
+
+                // Inicializar cliente si no existe
+                if (!clients[phone]) {
+                    clients[phone] = {
+                        name: apt.clientName,
+                        phone: phone,
+                        totalAppointments: 0,
+                        totalSpent: 0,
+                        rewardsAvailable: 0,
+                        currentProgress: 0,
+                        tags: []
+                    };
+                    clientDogs[phone] = new Map();
                 }
+
+                // Incrementar contador de citas completadas
+                if (apt.status === 'completed') {
+                    clients[phone].totalAppointments++;
+                    clients[phone].totalSpent += apt.price || 0;
+                }
+
+                // Registrar perros únicos
                 if (apt.petName) {
                     const dogKey = `${apt.petName.toLowerCase()}_${apt.petBreed}`;
-                    if (!clientDogs[apt.clientPhone].has(dogKey)) {
-                        clientDogs[apt.clientPhone].set(dogKey, {
+                    if (!clientDogs[phone].has(dogKey)) {
+                        clientDogs[phone].set(dogKey, {
                             name: apt.petName,
                             breed: apt.petBreed || 'Desconocido',
                             size: apt.petSize || 'mediano',
@@ -2753,6 +2853,24 @@
                     }
                 }
             });
+
+            // Calcular recompensas y progreso para cada cliente
+            Object.values(clients).forEach(client => {
+                const completed = client.totalAppointments;
+                client.rewardsAvailable = Math.floor(completed / REWARDS_CONFIG.appointmentsRequired);
+                client.currentProgress = completed % REWARDS_CONFIG.appointmentsRequired;
+
+                // Asignar tags dinámicos
+                if (completed >= 5) client.tags.push('VIP');
+                if (clientDogs[client.phone] && clientDogs[client.phone].size > 1) client.tags.push('Multi-Perro');
+                if (completed <= 2) client.tags.push('Nuevo');
+            });
+
+            // Guardar el catálogo reconstruido en localStorage
+            localStorage.setItem('clients', JSON.stringify(clients));
+
+            // Convertir a array para renderizado
+            const clientsArray = Object.values(clients);
 
             let filtered = clientsArray.filter(c => c.name.toLowerCase().includes(searchTerm) || c.phone.includes(searchTerm));
             if (filter === 'with-rewards') filtered = filtered.filter(c => c.rewardsAvailable > 0);
