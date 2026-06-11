@@ -1612,7 +1612,7 @@
     <script>
         // CONFIGURATION - ENVIRONMENT SETUP
         // Set this to 'production' when deploying to live site
-        const ENVIRONMENT = 'production'; // 'development' or 'production'
+        const ENVIRONMENT = 'development'; // 'development' or 'production'
 
         const CONFIG = {
             development: {
@@ -2443,9 +2443,10 @@
 
                 // Reset booking after short delay (if user doesn't click close first)
                 resetTimeout = setTimeout(() => {
+                    document.getElementById('success-modal').classList.add('hidden');
                     resetBooking();
-                    goToStep(1);
-                }, 2000);
+                    goToView('landing');
+                }, 3000);
 
             } catch (error) {
                 console.error('❌ Booking failed:', error);
@@ -2462,10 +2463,10 @@
                 resetTimeout = null;
             }
 
-            // Hide modal and reset to start
+            // Hide modal, reset form, and go back to landing page
             document.getElementById('success-modal').classList.add('hidden');
             resetBooking();
-            goToStep(1);
+            goToView('landing');
         });
 
         // Copy tracking link button
