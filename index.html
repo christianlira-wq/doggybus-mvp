@@ -2325,8 +2325,6 @@
             btnConfirm.disabled = true;
         });
 
-        let resetTimeout = null; // Track timeout for cleanup
-
         btnConfirm.addEventListener('click', async function(e) {
             e.preventDefault();
 
@@ -2441,12 +2439,8 @@
 
                 document.getElementById('success-modal').classList.remove('hidden');
 
-                // Reset booking after short delay (if user doesn't click close first)
-                resetTimeout = setTimeout(() => {
-                    document.getElementById('success-modal').classList.add('hidden');
-                    resetBooking();
-                    goToView('landing');
-                }, 3000);
+                // No auto-close - let user decide when to close
+                // They might want to copy the link or send it via WhatsApp first
 
             } catch (error) {
                 console.error('❌ Booking failed:', error);
@@ -2457,12 +2451,6 @@
         });
 
         document.getElementById('close-modal').addEventListener('click', () => {
-            // Clear the auto-reset timeout if user clicks manually
-            if (resetTimeout) {
-                clearTimeout(resetTimeout);
-                resetTimeout = null;
-            }
-
             // Hide modal, reset form, and go back to landing page
             document.getElementById('success-modal').classList.add('hidden');
             resetBooking();
