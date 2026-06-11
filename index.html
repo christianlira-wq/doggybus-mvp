@@ -2451,10 +2451,20 @@
         });
 
         document.getElementById('close-modal').addEventListener('click', () => {
-            // Hide modal, reset form, and go back to landing page
+            // Hide modal
             document.getElementById('success-modal').classList.add('hidden');
+
+            // Reset booking form completely
             resetBooking();
+
+            // Hide all booking steps
+            document.querySelectorAll('.booking-step').forEach(step => step.classList.remove('active'));
+
+            // Go to landing view
             goToView('landing');
+
+            // Scroll to top (hero section)
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
         // Copy tracking link button
@@ -2612,7 +2622,10 @@
             btnStep2.disabled = true;
             btnConfirm.disabled = true;
             document.getElementById('btn-confirm-text').textContent = 'Confirmar Cita';
-            goToStep(1);
+
+            // Reset progress dots
+            document.querySelectorAll('.progress-dots .dot').forEach(dot => dot.classList.remove('active'));
+            document.querySelector('.progress-dots .dot[data-step="1"]')?.classList.add('active');
         }
 
         function showError(title, message) {
