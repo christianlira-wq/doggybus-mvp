@@ -1314,9 +1314,30 @@
                 <button onclick="goToView('landing')" class="text-sm text-gray-500 hover:text-gray-800 mb-12 inline-flex items-center gap-2">
                     <span>←</span> Volver
                 </button>
-                <div class="flex justify-between items-center mb-16">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
                     <h1 class="text-4xl md:text-5xl">Panel</h1>
-                    <p class="text-sm text-gray-500" id="admin-date"></p>
+
+                    <!-- Date Selector -->
+                    <div class="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm">
+                        <button onclick="changeAdminDate(-1)" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition">
+                            ← Anterior
+                        </button>
+                        <div class="flex flex-col items-center">
+                            <label class="text-xs text-gray-500 mb-1">Fecha</label>
+                            <input
+                                type="date"
+                                id="admin-date-picker"
+                                class="border-2 border-blue-500 px-4 py-2 rounded-lg text-center font-semibold cursor-pointer"
+                                onchange="onAdminDateChange()"
+                            />
+                        </div>
+                        <button onclick="changeAdminDate(1)" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition">
+                            Siguiente →
+                        </button>
+                        <button onclick="setAdminDateToday()" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition ml-2">
+                            Hoy
+                        </button>
+                    </div>
                 </div>
                 <div class="flex gap-8 mb-12 border-b border-gray-200">
                     <div class="tab-minimal active" onclick="switchAdminTab('daily')">Citas</div>
@@ -1327,13 +1348,13 @@
 
                 <div id="admin-tab-daily" class="admin-tab-content">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">Citas Hoy</p><p class="text-4xl font-light" id="metric-today">0</p></div>
+                        <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2" id="metric-today-label">Total Citas</p><p class="text-4xl font-light" id="metric-today">0</p></div>
                         <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">Ingresos</p><p class="text-4xl font-light" id="metric-revenue">$0</p></div>
                         <div class="bg-white p-8"><p class="text-sm text-gray-500 mb-2">Pendientes</p><p class="text-4xl font-light" id="metric-pending">0</p></div>
                     </div>
                     <div class="bg-white p-8">
                         <div class="flex justify-between items-center mb-8">
-                            <h2 class="text-2xl">Citas del Día</h2>
+                            <h2 class="text-2xl" id="appointments-title">Citas del Día</h2>
                             <select id="filter-status" class="text-sm border border-gray-300 px-4 py-2">
                                 <option value="all">Todos</option>
                                 <option value="pending-payment">Pago Pendiente</option>
@@ -1736,6 +1757,7 @@
             transaccionId: null
         };
         let currentView = 'landing', trackingRefreshInterval = null, selectedReward = null;
+        let selectedAdminDate = new Date().toISOString().split('T')[0]; // Admin panel date selector
 
         // Offline form persistence with localStorage
         function saveBookingData() {
@@ -2747,7 +2769,10 @@
 
         function loadAdminView() {
             goToView('admin');
-            document.getElementById('admin-date').textContent = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+            // Initialize date picker with today's date
+            selectedAdminDate = new Date().toISOString().split('T')[0];
+            document.getElementById('admin-date-picker').value = selectedAdminDate;
+
             loadAdminAppointments();
             loadClientsView();
             loadAnalytics();
@@ -2765,17 +2790,54 @@
             document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
         }
 
+        // Date navigation functions for admin panel
+        function onAdminDateChange() {
+            selectedAdminDate = document.getElementById('admin-date-picker').value;
+            refreshAdminData();
+        }
+
+        function changeAdminDate(days) {
+            const currentDate = new Date(selectedAdminDate + 'T00:00:00');
+            currentDate.setDate(currentDate.getDate() + days);
+            selectedAdminDate = currentDate.toISOString().split('T')[0];
+            document.getElementById('admin-date-picker').value = selectedAdminDate;
+            refreshAdminData();
+        }
+
+        function setAdminDateToday() {
+            selectedAdminDate = new Date().toISOString().split('T')[0];
+            document.getElementById('admin-date-picker').value = selectedAdminDate;
+            refreshAdminData();
+        }
+
+        function refreshAdminData() {
+            // Refresh all data views for the selected date
+            const currentFilter = document.getElementById('filter-status').value;
+            loadAdminAppointments(currentFilter);
+            updateRouteView();
+        }
+
         function loadAdminAppointments(filterStatus = 'all') {
             const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-            const todayStr = new Date().toISOString().split('T')[0];
-            let filtered = appointments.filter(a => a.date === todayStr);
+            let filtered = appointments.filter(a => a.date === selectedAdminDate);
             if (filterStatus !== 'all') filtered = filtered.filter(a => a.status === filterStatus);
+
+            // Update metrics labels and values
+            const today = new Date().toISOString().split('T')[0];
+            const isToday = selectedAdminDate === today;
+            document.getElementById('metric-today-label').textContent = isToday ? 'Citas Hoy' : 'Total Citas';
             document.getElementById('metric-today').textContent = filtered.length;
             document.getElementById('metric-revenue').textContent = `$${filtered.reduce((sum, a) => sum + a.price, 0).toLocaleString()}`;
             document.getElementById('metric-pending').textContent = filtered.filter(a => a.status === 'pending-payment').length;
+
+            // Update appointments title
+            const selectedDate = new Date(selectedAdminDate + 'T00:00:00');
+            const dateStr = selectedDate.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('appointments-title').textContent = isToday ? 'Citas del Día' : `Citas - ${dateStr}`;
+
             const container = document.getElementById('appointments-container');
             if (filtered.length === 0) {
-                container.innerHTML = '<div class="text-center py-12 text-gray-500"><p>No hay citas</p></div>';
+                container.innerHTML = '<div class="text-center py-12 text-gray-500"><p>No hay citas para esta fecha</p></div>';
                 return;
             }
             filtered.sort((a, b) => a.time.localeCompare(b.time));
@@ -3382,25 +3444,24 @@
         function updateRouteView() {
             const selectedZone = document.getElementById('route-zone-selector').value;
             const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-            const todayStr = new Date().toISOString().split('T')[0];
 
-            // Filtrar citas de hoy por zona
-            const todayAppointments = appointments.filter(a => {
-                if (a.date !== todayStr) return false;
+            // Filtrar citas de la fecha seleccionada por zona
+            const dayAppointments = appointments.filter(a => {
+                if (a.date !== selectedAdminDate) return false;
                 const aptZone = getZoneForColonia(a.address?.colonia || '');
                 return aptZone === selectedZone;
             });
 
             // Calcular métricas
-            document.getElementById('route-services-count').textContent = todayAppointments.length;
-            const totalIncome = todayAppointments.reduce((sum, apt) => sum + (apt.price || 0), 0);
+            document.getElementById('route-services-count').textContent = dayAppointments.length;
+            const totalIncome = dayAppointments.reduce((sum, apt) => sum + (apt.price || 0), 0);
             document.getElementById('route-income-estimate').textContent = `$${totalIncome.toLocaleString()}`;
 
             // Renderizar tabla
             const tableBody = document.getElementById('route-table-body');
             const emptyState = document.getElementById('route-empty-state');
 
-            if (todayAppointments.length === 0) {
+            if (dayAppointments.length === 0) {
                 tableBody.innerHTML = '';
                 emptyState.classList.remove('hidden');
                 return;
@@ -3409,9 +3470,9 @@
             emptyState.classList.add('hidden');
 
             // Ordenar por hora
-            todayAppointments.sort((a, b) => a.time.localeCompare(b.time));
+            dayAppointments.sort((a, b) => a.time.localeCompare(b.time));
 
-            tableBody.innerHTML = todayAppointments.map(apt => {
+            tableBody.innerHTML = dayAppointments.map(apt => {
                 const statusBadge = {
                     'completed': '<span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">✅ TERMINADO</span>',
                     'en-route': '<span class="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full">🚗 EN RUTA</span>',
